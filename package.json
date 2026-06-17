@@ -1,0 +1,15 @@
+{
+  "name": "studysphere",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "client": "cd Frontend && npm run dev",
+    "server": "cd Backend && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "frontend": "cd Frontend && npm run dev",
+    "backend": "cd Backend && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3"
+  }
+}
