@@ -1,6 +1,13 @@
 const Admin = require("../Model/Admin");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const {
+  validateName,
+  validateEmail,
+  validatePhone,
+  validatePassword
+} = require("../utils/validation");
+
 
 // Register
 const register = async (req, res) => {
