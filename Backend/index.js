@@ -1,16 +1,36 @@
-let express = require('express');
-let mongoose = require('mongoose');
-let cors = require('cors');
-require('dotenv').config();
-let app = express()
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
+require("dotenv").config();
+
+
+const authRoutes = require("./Routes/authRoutes");
+const studentRoutes = require("./Routes/studentRoutes");
+const seatRoutes = require("./Routes/seatRoutes");
+const enrollmentRoutes = require("./Routes/enrollmentRoutes");
+
+const app = express();
+
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/auth", authRoutes);
+app.use("/api/students", studentRoutes);
+app.use("/api/seats", seatRoutes);
+app.use("/api/enrollments", enrollmentRoutes);
 
 
-mongoose.connect(process.env.DBURL).then(()=>{
-    console.log("connected to mongodb")
-    app.listen(process.env.PORT,()=>{
-        console.log("server is running on port "+process.env.PORT)
-    })
-})
+
+mongoose
+  .connect(process.env.DBURL)
+  .then(() => {
+    console.log("Connected to MongoDB");
+
+    app.listen(process.env.PORT, () => {
+      console.log(`Server running on port ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
