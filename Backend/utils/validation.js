@@ -37,6 +37,10 @@ const validateAddress = (address) => {
   return addressRegex.test(address);
 };
 
+const validateAmount = (amount) => {
+  return Number(amount) > 0;
+};
+
 module.exports = {
   validateName,
   validateEmail,
@@ -44,4 +48,5 @@ module.exports = {
   validatePhone,
   validateSeatNumber,
   validateAddress,
+  validateAmount
 };
