@@ -1,36 +1,114 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
+import { iconStyles } from "../../constants/iconStyles";
+
+
+import {
+  LayoutDashboard,
+  Users,
+  UserPlus,
+  Armchair,
+  Receipt,
+  FileText,
+  LogOut,
+  Menu,
+  
+} from "lucide-react";
+
 const menuItems = [
-  "Dashboard",
-  "Students",
-  "Enrollments",
-  "Seat Management",
-  "Subscriptions",
-  "Payments",
-  "Invoices",
-  "Reports",
-  "Settings",
+  {
+    name: "Dashboard",
+     icon: <LayoutDashboard size={20}   />,
+     path: "/",
+  },
+  {
+    name: "Students",
+    icon: <Users size={20} />,
+    path: "/students",
+  },
+  {
+    name: "Enrollments",
+    icon: <UserPlus size={20} />,
+    path: "/enrollments",
+  },
+  {
+    name: "Seat Management",
+    icon: <Armchair size={20} />,
+    path: "/seats",
+  },
+  {
+    name: "Invoices",
+    icon: <Receipt size={20} />,
+    path: "/invoices",
+  },
+  {
+    name: "Reports",
+    icon: <FileText size={20} />,
+    path: "/reports",
+  },
 ];
 
-const Sidebar = () => {
+const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
+  const { logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return (
-    <aside className="w-64 min-h-screen bg-slate-900 text-white p-5">
+    <aside
+      className={`bg-slate-900 text-white  fixed left-0 top-0 h-screen transition-all duration-300 flex flex-col ${
+        sidebarOpen ? "w-64" : "w-20"
+      }`}
+    >
+    
+      <div className="flex items-center justify-between p-4 border-b border-slate-700">
+        {sidebarOpen && (
+          <h1 className="text-xl font-bold">
+            StudySphere
+          </h1>
+        )}
 
-      <h1 className="text-2xl font-bold mb-10">
-        StudySphere
-      </h1>
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className="p-2 rounded hover:bg-blue-500"
+        >
+          <Menu size={22} />
+        </button>
+      </div>
 
-      <nav>
-        <ul className="space-y-3">
-          {menuItems.map((item) => (
-            <li
-              key={item}
-              className="cursor-pointer rounded-lg px-3 py-2 hover:bg-slate-800 transition"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
+    
+      <nav className=" flex-1 p-4 space-y-2">
+        {menuItems.map((item) => (
+          <Link
+            key={item.name}
+            to={item.path}
+            className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-blue-500"
+          >
+            {item.icon}
+
+            {sidebarOpen && (
+              <span>{item.name}</span>
+            )}
+          </Link>
+        ))}
       </nav>
 
+     
+      <div className="p-4 border-t border-slate-700">
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-red-400 hover:bg-slate-800"
+        >
+          <LogOut size={20} />
+
+          {sidebarOpen && (
+            <span>Logout</span>
+          )}
+        </button>
+      </div>
     </aside>
   );
 };

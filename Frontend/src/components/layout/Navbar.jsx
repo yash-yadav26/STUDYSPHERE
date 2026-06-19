@@ -1,6 +1,7 @@
+import StudentSearch from "../../components/students/StudentSearch";
 const Navbar = () => {
   return (
-    <header className="bg-white h-16 shadow-sm flex items-center justify-between px-6">
+    <header className=" sticky top-0 z-40 bg-white h-16 shadow-sm flex items-center justify-between px-6 ">
 
       <div>
         <h2 className="font-semibold text-xl">
@@ -10,11 +11,7 @@ const Navbar = () => {
 
       <div className="flex items-center gap-4">
 
-        <input
-          type="text"
-          placeholder="Search..."
-          className="border rounded-lg px-3 py-2"
-        />
+       <StudentSearch/>
 
         <div className="w-10 h-10 rounded-full bg-slate-300" />
 

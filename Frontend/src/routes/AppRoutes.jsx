@@ -8,7 +8,7 @@ import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import Dashboard from "../pages/dashboard/Dashboard";
 import ProtectedRoute from "./ProtectedRoute";
-
+import Students from "../pages/students/Students";
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -24,18 +24,22 @@ const AppRoutes = () => {
           element={<Login />}
         />
 
-        <Route
-          path="/"
-          element={
-           
-              <Dashboard />
-           
-          }
-        />
+       <Route
+  path="/"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
+         <Route
+       path="/students"
+       element={<Students />} />
+
+   
 
       </Routes>
-
-    </BrowserRouter>
+      </BrowserRouter>
   );
 };
 

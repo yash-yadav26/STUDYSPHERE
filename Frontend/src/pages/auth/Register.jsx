@@ -1,8 +1,14 @@
 import { useState } from "react";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
-import { Link } from "react-router-dom";
+
+
+
+import { useNavigate, Link } from "react-router-dom";
+
 const Register = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -20,8 +26,17 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+
+    console.log("Registered:", formData);
+
+    navigate("/login");
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100">
@@ -85,14 +100,14 @@ const Register = () => {
           </Button>
 
          <p className="text-center mt-4">
-  Already have an account?{" "}
-  <Link
-    to="/login"
-    className="text-blue-600 font-medium"
-  >
-    Login
-  </Link>
-</p> 
+            Already have an account?{" "}
+            <Link
+             to="/login"
+            className="text-blue-600 font-medium"
+             >
+              Login
+            </Link>
+         </p> 
 
         </form>
 

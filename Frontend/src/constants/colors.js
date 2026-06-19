@@ -1,16 +1,19 @@
+import { Surface } from "recharts";
+
 export const COLORS = {
-  primary: "#2563EB",
-  secondary: "#64748B",
+  primary: "#14B8A6",
+  secondary: "#CCFBF1",
 
-  success: "#22C55E",
-  danger: "#EF4444",
-  warning: "#F59E0B",
+  success: "#059669",
+  danger: "#DC2626",
+  warning: "#EAB308",
 
-  background: "#F8FAFC",
-  white: "#FFFFFF",
+  background: "#F0FDFA",
+  Surface: "#FFFFFF",
+  info: "#06B6D4", 
 
-  textPrimary: "#0F172A",
-  textSecondary: "#64748B",
+  textPrimary: "#134E4A",
+  textSecondary: "#0D9488",
 
-  border: "#E2E8F0",
+  border: "#164E63",
 };
