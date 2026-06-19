@@ -2,25 +2,11 @@ const Enrollment = require("../Model/Enrollment");
 const Student = require("../Model/Student");
 const Seat = require("../Model/Seat");
 
-const expireEnrollments = async () => {
-  const expiredEnrollments = await Enrollment.find({
-    endDate: { $lt: new Date() },
-    status: "Active",
-  });
 
-  for (const enrollment of expiredEnrollments) {
-    enrollment.status = "Expired";
-    await enrollment.save();
-
-    await Seat.findByIdAndUpdate(enrollment.seatId, {
-      status: "Available",
-    });
-  }
-};
 // Create Enrollment
 const createEnrollment = async (req, res) => {
   try {
-     await expireEnrollments();
+     
     const { studentId, seatId, planType, startDate } = req.body;
 
     // Required Fields
@@ -106,7 +92,7 @@ const createEnrollment = async (req, res) => {
 
 const getAllEnrollments = async (req, res) => {
   try {
-    await expireEnrollments();
+    
     const enrollments = await Enrollment.find()
       .populate("studentId", "name email phone")
       .populate("seatId", "seatNumber status");
@@ -127,7 +113,7 @@ const getAllEnrollments = async (req, res) => {
 // Get Enrollment By Id
 const getEnrollmentById = async (req, res) => {
   try {
-    await expireEnrollments();
+    
     const enrollment = await Enrollment.findById(req.params.id)
       .populate("studentId", "name email phone")
       .populate("seatId", "seatNumber status");
@@ -190,5 +176,5 @@ module.exports = {
   getAllEnrollments,
   getEnrollmentById,
   deleteEnrollment,
-  expireEnrollments,
+  
 };

@@ -2,11 +2,11 @@ const Student = require("../Model/Student");
 const Seat = require("../Model/Seat");
 const Payment = require("../Model/Payment");
 const Enrollment = require("../Model/Enrollment");
-const { expireEnrollments } = require("../Controller/enrollmentController");
+
 
 const getDashboardStats = async (req, res) => {
   try {
-    await expireEnrollments();
+  
     const TOTAL_SEATS = 500;
 
     // Total Students

@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("./Jobs/enrollmentCron");
 
 require("dotenv").config();
 
