@@ -31,7 +31,7 @@ const StudentDetails = () => {
         Student Details
       </h1>
 
-      <div className="grid md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <p>
             <strong>Name:</strong>{" "}

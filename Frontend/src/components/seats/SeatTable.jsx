@@ -16,8 +16,8 @@ export default function SeatTable({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow overflow-hidden">
-      <table className="w-full">
+    <div className="bg-white rounded-xl shadow overflow-x-auto">
+      <table className="w-full ">
         <thead className="bg-gray-100">
           <tr>
             <th className="p-4">Seat Number</th>

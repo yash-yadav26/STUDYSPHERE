@@ -30,7 +30,7 @@ export default function PaymentDetails() {
           Payment Details
         </h2>
 
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 space-y-3">
           <p>
             Transaction:
             {" "}

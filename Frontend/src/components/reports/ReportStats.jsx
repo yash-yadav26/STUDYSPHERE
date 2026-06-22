@@ -1,4 +1,9 @@
-import { Users, UserPlus, IndianRupee, Armchair } from "lucide-react";
+import {
+  Users,
+  UserPlus,
+  IndianRupee,
+  Armchair,
+} from "lucide-react";
 
 export default function ReportStats({
   studentsCount,
@@ -37,21 +42,25 @@ export default function ReportStats({
         return (
           <div
             key={item.title}
-            className="bg-white rounded-xl shadow p-6"
+            className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-indigo-200 group"
           >
-            <div className="flex justify-between">
+            <div className="flex items-start justify-between">
               <div>
-                <p className="text-gray-500">
+                <p className="text-sm font-medium text-slate-500">
                   {item.title}
                 </p>
 
-                <h2 className="text-3xl font-bold mt-2">
+                <h2 className="text-3xl font-bold text-slate-800 mt-3">
                   {item.value}
                 </h2>
               </div>
 
-              <Icon size={30} />
+              <div className="p-3 rounded-xl bg-indigo-50 text-indigo-600 transition-all duration-300 group-hover:bg-indigo-600 group-hover:text-white">
+                <Icon size={26} />
+              </div>
             </div>
+
+            <div className="mt-5 h-1 w-12 rounded-full bg-indigo-100 group-hover:w-20 group-hover:bg-indigo-500 transition-all duration-300"></div>
           </div>
         );
       })}

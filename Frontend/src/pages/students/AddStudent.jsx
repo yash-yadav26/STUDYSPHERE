@@ -17,7 +17,7 @@ const AddStudent = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">
+      <h1 className="text-3xl font-bold text-blue-900 text-center p-2">
         Add Student
       </h1>
 

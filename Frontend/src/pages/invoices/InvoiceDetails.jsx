@@ -29,7 +29,7 @@ export default function InvoiceDetails() {
           Invoice Details
         </h1>
 
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 space-y-3">
           <p>
             Invoice No:
             {" "}

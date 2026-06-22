@@ -10,8 +10,9 @@ const EnrollmentTable = ({
 }) => {
      const navigate = useNavigate();
   return (
-    <div className="bg-white rounded-xl shadow overflow-hidden">
-      <table className="w-full">
+    <div className="bg-white rounded-xl shadow ">
+      <div className="overflow-x-auto">
+      <table className="w-full min-w-[700px]">
         <thead>
           <tr className="bg-slate-100">
             <th className="p-4 text-left">
@@ -102,6 +103,7 @@ const EnrollmentTable = ({
           )}
         </tbody>
       </table>
+      </div>
     </div>
   );
 };

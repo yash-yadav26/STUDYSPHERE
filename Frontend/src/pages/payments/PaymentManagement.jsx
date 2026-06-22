@@ -3,7 +3,7 @@ import DashboardLayout from "../../components/layout/DashboardLayout";
 import PaymentTable from "../../components/payments/PaymentTable";
 import { getPayments } from "../../services/paymentService";
 import { useNavigate } from "react-router-dom";
-
+import PaymentStats from "../../components/payments/PaymentStats";
 export default function PaymentManagement() {
   const navigate = useNavigate();
 
@@ -39,6 +39,7 @@ export default function PaymentManagement() {
             Add Payment
           </button>
         </div>
+        <PaymentStats payments={payments} />
 
         <PaymentTable
           payments={payments}

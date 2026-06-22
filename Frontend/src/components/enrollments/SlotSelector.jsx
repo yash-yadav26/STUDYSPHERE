@@ -10,11 +10,11 @@ const SlotSelector = ({
 }) => {
   return (
     <div className="bg-white p-6 rounded-xl shadow">
-      <h2 className="font-semibold mb-4">
+      <h2 className="font-semibold mb-4 ">
         Select Slot
       </h2>
 
-      <div className="flex gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {slots.map((slot) => (
           <button
             key={slot}

@@ -12,6 +12,7 @@ const AddEnrollment = () => {
       studentId: "",
       passType: "",
       slot: "",
+     
       seatId: "",
     });
 
@@ -32,7 +33,7 @@ const AddEnrollment = () => {
       alert("Failed to create enrollment");
     }
   };
-
+ 
   return (
     <DashboardLayout>
       <div className="space-y-6">
@@ -45,12 +46,7 @@ const AddEnrollment = () => {
           setEnrollmentData={setEnrollmentData}
         />
 
-        <button
-          onClick={handleSubmit}
-          className="bg-indigo-600 text-white px-6 py-3 rounded-lg"
-        >
-          Create Enrollment
-        </button>
+      
       </div>
     </DashboardLayout>
   );

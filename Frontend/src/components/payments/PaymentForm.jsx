@@ -42,7 +42,9 @@ export default function PaymentForm() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-6 max-w-2xl">
+    <div className="flex justify-center">
+    <div className="w-full max-w-4xl">
+    <div className="bg-white rounded-xl shadow p-6 max-w-2xl  ">
       <h2 className="text-xl font-bold mb-6">
         Create Payment
       </h2>
@@ -168,6 +170,8 @@ export default function PaymentForm() {
           Save Payment
         </button>
       </form>
+    </div>
+    </div>
     </div>
   );
 }

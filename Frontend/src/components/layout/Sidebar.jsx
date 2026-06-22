@@ -62,7 +62,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   return (
     <aside
-      className={`fixed left-0 top-0 h-screen bg-slate-900 text-white transition-all duration-300 z-50 ${
+      className={`fixed left-0 top-0 h-screen bg-slate-900 text-white transition-all duration-300 z-50 flex flex-col  ${
         sidebarOpen ? "w-64" : "w-20"
       }`}
     >
@@ -80,6 +80,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
           <Menu size={22} />
         </button>
       </div>
+      {
+ 
+}
 
       <nav className="flex-1 p-4 space-y-2">
         {menuItems.map((item) => {
@@ -104,7 +107,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
       <div className="p-4 border-t border-slate-700">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 w-full px-4 py-3 rounded-lg text-red-400 hover:bg-slate-800"
+          className=" flex items-center gap-3 w-full px-4 py-3 rounded-lg text-red-400 hover:bg-slate-800"
         >
           <LogOut size={20} />
 

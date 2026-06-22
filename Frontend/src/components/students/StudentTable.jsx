@@ -20,7 +20,7 @@ const StudentTable = ({
   return (
     <div className="bg-white rounded-xl shadow">
       <div className="overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full min-w-[900px]">
           <thead>
             <tr className="bg-slate-100">
               <th className="p-4 text-left">ID</th>

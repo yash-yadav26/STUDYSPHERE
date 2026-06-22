@@ -1,4 +1,4 @@
-// StudentFilters.jsx
+
 
 export default function StudentFilters({
   membership,
@@ -11,7 +11,7 @@ export default function StudentFilters({
       onChange={(e) =>
         setMembership(e.target.value)
       }
-      className="border rounded-lg px-4 py-2"
+      className="border rounded-lg px-4 py-2 "
     >
       <option value="">All Memberships</option>
       <option value="Daily">Daily</option>

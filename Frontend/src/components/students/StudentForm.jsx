@@ -28,18 +28,20 @@ const StudentForm = ({
   };
 
   return (
+     <div className="flex justify-center">
+    <div className="w-full max-w-4xl">
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-xl shadow"
+      className="bg-slate-100 p-6 rounded-xl shadow  "
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
         <input
           type="text"
           name="firstName"
           placeholder="First Name"
           value={formData.firstName}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="border rounded-lg px-4 py-3 bg-white"
           required
         />
 
@@ -49,7 +51,7 @@ const StudentForm = ({
           placeholder="Last Name"
           value={formData.lastName}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="border rounded-lg px-4 py-3 bg-white"
           required
         />
 
@@ -59,7 +61,7 @@ const StudentForm = ({
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="border rounded-lg px-4 py-3 bg-white"
           required
         />
 
@@ -69,7 +71,7 @@ const StudentForm = ({
           placeholder="Phone"
           value={formData.phone}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="border rounded-lg px-4 py-3 bg-white"
           required
         />
 
@@ -77,7 +79,7 @@ const StudentForm = ({
           name="gender"
           value={formData.gender}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="border rounded-lg px-4 py-3 bg-white"
         >
           <option value="">Select Gender</option>
           <option value="MALE">Male</option>
@@ -89,7 +91,7 @@ const StudentForm = ({
           name="status"
           value={formData.status}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="border rounded-lg px-4 py-3 bg-white"
         >
           <option value="ACTIVE">Active</option>
           <option value="INACTIVE">Inactive</option>
@@ -101,7 +103,7 @@ const StudentForm = ({
         placeholder="Address"
         value={formData.address}
         onChange={handleChange}
-        className="w-full border rounded-lg px-4 py-3 mt-5"
+        className="w-full border rounded-lg px-4 py-3 mt-5 bg-white"
         rows={4}
       />
 
@@ -116,11 +118,14 @@ const StudentForm = ({
           py-3
           rounded-lg
           hover:bg-indigo-700
+          hover:-translate-y-1
         "
       >
         {loading ? "Saving..." : "Save Student"}
       </button>
     </form>
+    </div>
+    </div>
   );
 };
 
