@@ -1,4 +1,4 @@
-const WelcomeCard = ({
+ const WelcomeCard = ({
   name = "Admin",
   revenue = "₹4,500",
   students = "12",
@@ -9,7 +9,7 @@ const WelcomeCard = ({
        hover:-translate-y-1">
 
       <h1 className="text-3xl font-bold">
-        Welcome Back, {name} 👋
+        Welcome Back, {name} 
       </h1>
 
       <p className="mt-2 text-slate-300">

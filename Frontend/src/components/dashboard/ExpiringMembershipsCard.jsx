@@ -1,39 +1,34 @@
-const memberships = [
-  {
-    id: 1,
-    name: "Aman Singh",
-    days: "2 Days Left",
-  },
-  {
-    id: 2,
-    name: "Neha Gupta",
-    days: "5 Days Left",
-  },
-];
+const ExpiringMembershipsCard = ({
+  enrollments = [],
+}) => {
+  const expiringMemberships =
+    enrollments.slice(0, 5);
 
-const ExpiringMembershipsCard = () => {
   return (
-    <div className="bg-white rounded-xl border shadow-sm p-6">
-
-      <h2 className="text-xl font-semibold mb-4">
-        Expiring Memberships
-      </h2>
+    <div className="bg-white rounded-xl p-6 min-h-[150px]">
 
       <div className="space-y-4">
+        {expiringMemberships.length > 0 ? (
+          expiringMemberships.map((member) => (
+            <div
+              key={member._id}
+              className="flex justify-between items-center border-b pb-2"
+            >
+              <span>
+                {member.studentId?.name ||
+                  "Student"}
+              </span>
 
-        {memberships.map((member) => (
-          <div
-            key={member.id}
-            className="flex justify-between items-center border-b pb-2"
-          >
-            <span>{member.name}</span>
-
-            <span className="font-semibold text-orange-500">
-              {member.days}
-            </span>
-          </div>
-        ))}
-
+              <span className="font-semibold text-orange-500">
+                {new Date(
+                  member.endDate
+                ).toLocaleDateString()}
+              </span>
+            </div>
+          ))
+        ) : (
+          <p>No Memberships Found</p>
+        )}
       </div>
 
     </div>

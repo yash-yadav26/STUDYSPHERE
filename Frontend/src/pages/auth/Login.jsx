@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import Input from "../../components/ui/Input";
+import axios from "axios";
 import Button from "../../components/ui/Button";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const navigate = useNavigate();
-  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -20,53 +22,93 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Temporary frontend-only login
-    login({
-      email: formData.email,
-    });
+    try {
+      setLoading(true);
 
-    navigate("/");
+      const res = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        formData
+      );
+
+      const { admin, token } = res.data;
+
+      login(admin, token);
+
+      alert("Login Successful");
+
+      navigate("/");
+    } catch (error) {
+      console.error("Login Error:", error);
+
+      alert(
+        error?.response?.data?.message ||
+          "Invalid email or password"
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-100 ">
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md  ">
+    <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
+      <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg">
 
-        <h1 className="text-3xl font-bold mb-6 text-center">
-          Admin Login
+        <h1 className="text-3xl font-bold text-center mb-2">
+          StudySphere
         </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <p className="text-center text-gray-500 mb-8">
+          Admin Login
+        </p>
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3"
-            required
-          />
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+        >
+          <div>
+            <label className="block mb-2 text-sm font-medium">
+              Email
+            </label>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full border rounded-lg px-4 py-3"
-            required
-          />
-            <Button type="submit">
-            Login
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter Email"
+              value={formData.email}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-2 text-sm font-medium">
+              Password
+            </label>
+
+            <input
+              type="password"
+              name="password"
+              placeholder="Enter Password"
+              value={formData.password}
+              onChange={handleChange}
+              className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+
+          <Button
+            type="submit"
+            disabled={loading}
+          >
+            {loading
+              ? "Logging in..."
+              : "Login"}
           </Button>
-         
-
         </form>
-
       </div>
     </div>
   );

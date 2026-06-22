@@ -12,9 +12,9 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+   
     password: "",
-    confirmPassword: "",
+   
   });
 
   const handleChange = (e) => {
@@ -69,14 +69,7 @@ const Register = () => {
             onChange={handleChange}
           />
 
-          <Input
-            label="Phone"
-            name="phone"
-            placeholder="Enter phone number"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-
+          
           <Input
             label="Password"
             name="password"
@@ -86,15 +79,7 @@ const Register = () => {
             onChange={handleChange}
           />
 
-          <Input
-            label="Confirm Password"
-            name="confirmPassword"
-            type="password"
-            placeholder="Confirm password"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-          />
-
+         
           <Button type="submit">
             Register
           </Button>

@@ -1,3 +1,4 @@
+import { UserCheck } from "lucide-react";
 import Dashboard from "../pages/dashboard/Dashboard";
 
 export const iconStyles = {
@@ -33,8 +34,8 @@ export const iconStyles = {
   memberships: {
     bg: "bg-orange-100",
     text: "text-orange-600",
-  },
-
+  },                                            
+ 
   invoices: {
     bg: "bg-cyan-100",
     text: "text-cyan-600",
@@ -44,4 +45,10 @@ export const iconStyles = {
     bg: "bg-pink-100",
     text: "text-pink-600",
   },
+   
+  UserCheck:{
+    bg:"bg-blue-100",
+    text:"text-blue-600",
+  },
+ 
 };

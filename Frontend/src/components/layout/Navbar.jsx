@@ -1,11 +1,15 @@
 import StudentSearch from "../../components/students/StudentSearch";
-const Navbar = () => {
+const Navbar = ({sidebarOpen}) => {
   return (
-    <header className=" sticky top-0 z-40 bg-white h-16 shadow-sm flex items-center justify-between px-6 ">
+    <header
+  className={`fixed top-0 right-0 h-18 bg-white border-b z-40 transition-all duration-300 flex items-center justify-between  ${
+    sidebarOpen ? "left-64" : "left-20"
+  }`}
+>
 
       <div>
-        <h2 className="font-semibold text-xl">
-          Dashboard
+        <h2 className="font-bold text-4xl text-blue-900 px-4">
+          Hello...
         </h2>
       </div>
 
@@ -13,7 +17,7 @@ const Navbar = () => {
 
        <StudentSearch/>
 
-        <div className="w-10 h-10 rounded-full bg-slate-300" />
+        
 
       </div>
 
