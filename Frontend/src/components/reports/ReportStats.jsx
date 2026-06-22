@@ -1,10 +1,15 @@
-import { Users, UserPlus, IndianRupee, Armchair } from "lucide-react";
+import {
+  Users,
+  UserPlus,
+  IndianRupee,
+  Armchair,
+} from "lucide-react";
 
 export default function ReportStats({
-  studentsCount,
-  enrollmentsCount,
-  revenue,
-  occupiedSeats,
+  studentsCount = 0,
+  enrollmentsCount = 0,
+  revenue = 0,
+  occupiedSeats = 0,
 }) {
   const stats = [
     {
@@ -37,11 +42,11 @@ export default function ReportStats({
         return (
           <div
             key={item.title}
-            className="bg-white rounded-xl shadow p-6"
+            className="bg-white rounded-xl shadow p-6 hover:shadow-lg transition"
           >
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <div>
-                <p className="text-gray-500">
+                <p className="text-gray-500 text-sm">
                   {item.title}
                 </p>
 
@@ -50,7 +55,9 @@ export default function ReportStats({
                 </h2>
               </div>
 
-              <Icon size={30} />
+              <div className="p-3 bg-slate-100 rounded-lg">
+                <Icon size={28} />
+              </div>
             </div>
           </div>
         );

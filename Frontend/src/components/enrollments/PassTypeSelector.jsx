@@ -1,16 +1,7 @@
 const passTypes = [
-  {
-    name: "Monthly",
-    amount: 2000,
-  },
-  {
-    name: "Quarterly",
-    amount: 5000,
-  },
-  {
-    name: "Yearly",
-    amount: 18000,
-  },
+  "Daily Pass",
+  "Monthly Pass",
+  "Full Day Plan",
 ];
 
 const PassTypeSelector = ({
@@ -26,26 +17,26 @@ const PassTypeSelector = ({
       <div className="grid md:grid-cols-3 gap-4">
         {passTypes.map((pass) => (
           <button
-            key={pass.name}
+            type="button"
+            key={pass}
             onClick={() =>
               setEnrollmentData({
                 ...enrollmentData,
-                passType: pass,
+                planType: pass,
               })
             }
             className={`p-5 rounded-xl border text-left ${
-              enrollmentData.passType
-                ?.name === pass.name
+              enrollmentData.planType === pass
                 ? "border-indigo-600 bg-indigo-50"
                 : ""
             }`}
           >
             <h3 className="font-semibold">
-              {pass.name}
+              {pass}
             </h3>
 
-            <p>
-              ₹{pass.amount}
+            <p className="text-sm text-gray-500">
+              Click to select
             </p>
           </button>
         ))}

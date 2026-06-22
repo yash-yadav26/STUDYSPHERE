@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import SeatTable from "../../components/seats/SeatTable";
 import { getSeats } from "../../services/seatService";
+import { useNavigate } from "react-router-dom";
 
 export default function SeatManagement() {
   const [seats, setSeats] = useState([]);
+  const navigate = useNavigate();
 
   const fetchSeats = async () => {
     try {
@@ -22,16 +24,18 @@ export default function SeatManagement() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="flex justify-between">
-          <h1 className="text-2xl font-bold">
-            Seat Management
-          </h1>
+        <div className="flex justify-between items-center">
+          <h1 className="text-2xl font-bold">Seat Management</h1>
+
+          <button
+            onClick={() => navigate("/seats/add")}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+          >
+            Add Seat
+          </button>
         </div>
 
-        <SeatTable
-          seats={seats}
-          refreshSeats={fetchSeats}
-        />
+        <SeatTable seats={seats} refreshSeats={fetchSeats} />
       </div>
     </DashboardLayout>
   );

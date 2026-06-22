@@ -1,5 +1,5 @@
 export default function EnrollmentReport({
-  enrollments,
+  enrollments = [],
 }) {
   return (
     <div className="bg-white rounded-xl shadow p-6">
@@ -7,33 +7,57 @@ export default function EnrollmentReport({
         Enrollment Report
       </h2>
 
-      <table className="w-full">
-        <thead>
-          <tr>
-            <th>Student</th>
-            <th>Seat</th>
-            <th>Plan</th>
-          </tr>
-        </thead>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left py-3">
+                Student
+              </th>
 
-        <tbody>
-          {enrollments.map((item) => (
-            <tr key={item._id}>
-              <td>
-                {item.studentId?.name}
-              </td>
+              <th className="text-left py-3">
+                Seat
+              </th>
 
-              <td>
-                {item.seatId?.seatNumber}
-              </td>
-
-              <td>
-                {item.planType}
-              </td>
+              <th className="text-left py-3">
+                Plan
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {enrollments.length > 0 ? (
+              enrollments.map((item) => (
+                <tr
+                  key={item._id}
+                  className="border-b"
+                >
+                  <td className="py-3">
+                    {item.studentId?.name || "-"}
+                  </td>
+
+                  <td className="py-3">
+                    {item.seatId?.seatNumber || "-"}
+                  </td>
+
+                  <td className="py-3">
+                    {item.planType || "-"}
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="3"
+                  className="text-center py-6 text-gray-500"
+                >
+                  No Enrollment Found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

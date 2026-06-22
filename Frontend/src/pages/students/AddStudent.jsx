@@ -5,15 +5,27 @@ import { createStudent } from "../../services/studentService";
 const AddStudent = () => {
   const navigate = useNavigate();
 
-  const handleCreateStudent = async (data) => {
-    try {
-      await createStudent(data);
+const handleCreateStudent = async (data) => {
+  console.log("Student Data:", data);
 
-      navigate("/students");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  try {
+    const res = await createStudent(data);
+
+    console.log("Success:", res);
+
+    alert("Student Created");
+
+    navigate("/students");
+  } catch (error) {
+    console.log("Error:", error);
+    console.log("Response:", error?.response);
+
+    alert(
+      error?.response?.data?.message ||
+      "Student creation failed"
+    );
+  }
+};
 
   return (
     <div className="space-y-6">

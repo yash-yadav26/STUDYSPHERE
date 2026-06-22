@@ -17,7 +17,7 @@ const menuItems = [
   {
     name: "Dashboard",
     icon: LayoutDashboard,
-    path: "/",
+    path: "/dashboard",
   },
   {
     name: "Students",
@@ -55,11 +55,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
  const { logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-  auth.logout();
-  navigate("/login");
+const handleLogout = () => {
+  logout();
+  navigate("/register");
 };
-
   return (
     <aside
       className={`fixed left-0 top-0 h-screen bg-slate-900 text-white transition-all duration-300 z-50 ${

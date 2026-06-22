@@ -1,4 +1,3 @@
-import StudentSearch from "../../components/students/StudentSearch";
 const Navbar = ({sidebarOpen}) => {
   return (
     <header
@@ -15,7 +14,6 @@ const Navbar = ({sidebarOpen}) => {
 
       <div className="flex items-center gap-4">
 
-       <StudentSearch/>
 
         
 

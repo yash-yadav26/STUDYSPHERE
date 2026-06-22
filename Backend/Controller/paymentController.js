@@ -72,7 +72,13 @@ const createPayment = async (req, res) => {
 // Get All Payments
 const getAllPayments = async (req, res) => {
   try {
-    const payments = await Payment.find().populate("enrollmentId");
+    const payments = await Payment.find().populate({
+      path: "enrollmentId",
+      populate: {
+        path: "studentId",
+        select: "name",
+      },
+    });
 
     res.status(200).json({
       success: true,

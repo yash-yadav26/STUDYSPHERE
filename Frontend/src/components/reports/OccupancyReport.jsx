@@ -1,5 +1,5 @@
 export default function OccupancyReport({
-  seats,
+  seats = [],
 }) {
   return (
     <div className="bg-white rounded-xl shadow p-6">
@@ -7,28 +7,58 @@ export default function OccupancyReport({
         Occupancy Report
       </h2>
 
-      <table className="w-full">
-        <thead>
-          <tr>
-            <th>Seat</th>
-            <th>Status</th>
-          </tr>
-        </thead>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="border-b">
+              <th className="text-left py-3">
+                Seat
+              </th>
 
-        <tbody>
-          {seats.map((seat) => (
-            <tr key={seat._id}>
-              <td>
-                {seat.seatNumber}
-              </td>
-
-              <td>
-                {seat.status}
-              </td>
+              <th className="text-left py-3">
+                Status
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {seats.length > 0 ? (
+              seats.map((seat) => (
+                <tr
+                  key={seat._id}
+                  className="border-b"
+                >
+                  <td className="py-3">
+                    {seat.seatNumber}
+                  </td>
+
+                  <td className="py-3">
+                    <span
+                      className={`px-3 py-1 rounded-full text-sm ${
+                        seat.status ===
+                        "Occupied"
+                          ? "bg-red-100 text-red-700"
+                          : "bg-green-100 text-green-700"
+                      }`}
+                    >
+                      {seat.status}
+                    </span>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td
+                  colSpan="2"
+                  className="text-center py-6 text-gray-500"
+                >
+                  No Seat Data Found
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

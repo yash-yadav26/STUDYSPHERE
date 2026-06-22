@@ -39,7 +39,7 @@ const Login = () => {
 
       alert("Login Successful");
 
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.error("Login Error:", error);
 

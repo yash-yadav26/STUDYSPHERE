@@ -13,49 +13,61 @@ import { getEnrollments } from "../../services/enrollmentService";
 import { getSeats } from "../../services/seatService";
 import { getStudents } from "../../services/studentService";
 
-
-
 export default function Reports() {
   const [students, setStudents] = useState([]);
   const [payments, setPayments] = useState([]);
   const [enrollments, setEnrollments] = useState([]);
   const [seats, setSeats] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadData();
   }, []);
 
   const loadData = async () => {
-    const [
-      studentsRes,
-      paymentsRes,
-      enrollmentsRes,
-      seatsRes,
-    ] = await Promise.all([
-      getStudents(),
-      getPayments(),
-      getEnrollments(),
-      getSeats(),
-    ]);
+    try {
+      const [
+        studentsRes,
+        paymentsRes,
+        enrollmentsRes,
+        seatsRes,
+      ] = await Promise.all([
+        getStudents(),
+        getPayments(),
+        getEnrollments(),
+        getSeats(),
+      ]);
 
-    setStudents(
-      studentsRes.data.students || []
-    );
+      setStudents(
+        studentsRes.data.students || []
+      );
 
-    setPayments(
-      paymentsRes.data.payments || []
-    );
+      setPayments(
+        paymentsRes.data.payments || []
+      );
 
-    setEnrollments(
-      enrollmentsRes.data.enrollments || []
-    );
+      setEnrollments(
+        enrollmentsRes.data.enrollments || []
+      );
 
-    setSeats(seatsRes.data.seats || []);
+      setSeats(
+        seatsRes.data.seats || []
+      );
+    } catch (error) {
+      console.error(
+        "Failed to load reports:",
+        error
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const revenue = payments.reduce(
     (sum, payment) =>
-      sum + payment.amount,
+      payment.paymentStatus === "Paid"
+        ? sum + payment.amount
+        : sum,
     0
   );
 
@@ -64,11 +76,21 @@ export default function Reports() {
       seat.status === "Occupied"
   ).length;
 
+  if (loading) {
+    return (
+      <DashboardLayout>
+        <div className="bg-white p-6 rounded-xl shadow">
+          Loading Reports...
+        </div>
+      </DashboardLayout>
+    );
+  }
+
   return (
     <DashboardLayout>
       <div className="space-y-6">
         <h1 className="text-2xl font-bold">
-          Reports
+          Reports Dashboard
         </h1>
 
         <ReportStats

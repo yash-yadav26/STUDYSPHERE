@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
+import axios from "axios";
 
 
 
@@ -24,19 +25,29 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+  try {
+    const res = await axios.post(
+      "http://localhost:5000/api/auth/register",
+      formData
+    );
 
-    console.log("Registered:", formData);
+    alert(res.data.message);
 
     navigate("/login");
-  };
+  } catch (error) {
+  console.log("FULL ERROR =>", error);
+  console.log("RESPONSE =>", error.response);
+  console.log("DATA =>", error.response?.data);
 
+  alert(
+    JSON.stringify(error.response?.data) ||
+    "Registration Failed"
+  );
+}
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100">

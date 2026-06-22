@@ -1,50 +1,47 @@
 import StudentSelector from "./StudentSelector";
 import PassTypeSelector from "./PassTypeSelector";
-import SlotSelector from "./SlotSelector";
 import SeatSelector from "./SeatSelector";
-import EnrollmentSummary from "./EnrollmentSummary";
 
 const EnrollmentForm = ({
   enrollmentData,
   setEnrollmentData,
 }) => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div className="space-y-6">
 
-      <div className="lg:col-span-2 space-y-6">
+      <StudentSelector
+        enrollmentData={enrollmentData}
+        setEnrollmentData={setEnrollmentData}
+      />
 
-        <StudentSelector
-          enrollmentData={enrollmentData}
-          setEnrollmentData={
-            setEnrollmentData
+      <PassTypeSelector
+        enrollmentData={enrollmentData}
+        setEnrollmentData={setEnrollmentData}
+      />
+
+      <SeatSelector
+        enrollmentData={enrollmentData}
+        setEnrollmentData={setEnrollmentData}
+      />
+
+      <div className="bg-white p-6 rounded-xl shadow">
+        <label className="block mb-2 font-medium">
+          Start Date
+        </label>
+
+        <input
+          type="date"
+          value={enrollmentData.startDate}
+          onChange={(e) =>
+            setEnrollmentData({
+              ...enrollmentData,
+              startDate: e.target.value,
+            })
           }
-        />
-
-        <PassTypeSelector
-          enrollmentData={enrollmentData}
-          setEnrollmentData={
-            setEnrollmentData
-          }
-        />
-
-        <SlotSelector
-          enrollmentData={enrollmentData}
-          setEnrollmentData={
-            setEnrollmentData
-          }
-        />
-
-        <SeatSelector
-          enrollmentData={enrollmentData}
-          setEnrollmentData={
-            setEnrollmentData
-          }
+          className="w-full border rounded-lg p-3"
         />
       </div>
 
-      <EnrollmentSummary
-        enrollmentData={enrollmentData}
-      />
     </div>
   );
 };

@@ -2,10 +2,7 @@ import { Pencil, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { deleteSeat } from "../../services/seatService";
 
-export default function SeatTable({
-  seats,
-  refreshSeats,
-}) {
+export default function SeatTable({ seats, refreshSeats }) {
   const navigate = useNavigate();
 
   const handleDelete = async (id) => {
@@ -27,30 +24,15 @@ export default function SeatTable({
 
         <tbody>
           {seats.map((seat) => (
-            <tr
-              key={seat._id}
-              className="border-t"
-            >
-              <td className="p-4">
-                {seat.seatNumber}
-              </td>
+            <tr key={seat._id} className="border-t">
+              <td className="p-4">{seat.seatNumber}</td>
 
               <td className="p-4 flex gap-3">
-                <button
-                  onClick={() =>
-                    navigate(
-                      `/seats/edit/${seat._id}`
-                    )
-                  }
-                >
+                <button onClick={() => navigate(`/seats/edit/${seat._id}`)}>
                   <Pencil size={18} />
                 </button>
 
-                <button
-                  onClick={() =>
-                    handleDelete(seat._id)
-                  }
-                >
+                <button onClick={() => handleDelete(seat._id)}>
                   <Trash2 size={18} />
                 </button>
               </td>

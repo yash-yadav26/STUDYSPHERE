@@ -6,39 +6,45 @@ import { createEnrollment } from "../../services/enrollmentService";
 
 const AddEnrollment = () => {
   const navigate = useNavigate();
-
-  const [enrollmentData, setEnrollmentData] =
-    useState({
-      studentId: "",
-      passType: "",
-      slot: "",
-      seatId: "",
-    });
+  const [enrollmentData, setEnrollmentData] = useState({
+    studentId: "",
+    seatId: "",
+    planType: "",
+    startDate: new Date().toISOString().split("T")[0],
+  });
 
   const handleSubmit = async () => {
+    if (
+      !enrollmentData.studentId ||
+      !enrollmentData.seatId ||
+      !enrollmentData.planType
+    ) {
+      alert("Please fill all fields");
+      return;
+    }
+
     try {
       await createEnrollment({
         studentId: enrollmentData.studentId,
-        passType: enrollmentData.passType,
-        slot: enrollmentData.slot,
         seatId: enrollmentData.seatId,
+        planType: enrollmentData.planType,
+        startDate: enrollmentData.startDate,
       });
 
-      alert("Enrollment Created Successfully");
+      alert("Enrollment Created");
 
       navigate("/enrollments");
     } catch (error) {
-      console.error(error);
-      alert("Failed to create enrollment");
+      console.log(error);
+
+      alert(error.response?.data?.message);
     }
   };
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold">
-          New Enrollment
-        </h1>
+        <h1 className="text-2xl font-bold">New Enrollment</h1>
 
         <EnrollmentForm
           enrollmentData={enrollmentData}

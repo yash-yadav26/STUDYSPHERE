@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import DashboardCard from "../../components/dashboard/DashboardCard";
@@ -30,10 +30,7 @@ const Dashboard = () => {
   const [invoices, setInvoices] = useState([]);
   const [seats, setSeats] = useState([]);
 
-  useEffect(() => {
-    loadDashboard();
-  }, []);
-
+  
  const loadDashboard = async () => {
   try {
     const data = await getDashboardData();
@@ -47,7 +44,10 @@ const Dashboard = () => {
     console.log(error);
   }
 };
-     
+
+loadDashboard();
+
+
   const totalStudents = students.length;
 
   const totalRevenue = payments

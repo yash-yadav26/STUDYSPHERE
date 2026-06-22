@@ -39,17 +39,27 @@ const AppRoutes = () => {
 
       <Route path="/register" element={<Register />} />
 
+
       {/* Protected Routes */}
 
       <Route
         path="/"
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <Register />
           </ProtectedRoute>
         }
       />
 
+
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
       {/* Students */}
 
       <Route
@@ -226,10 +236,7 @@ const AppRoutes = () => {
 
       {/* Fallback */}
 
-      <Route
-        path="*"
-        element={<Navigate to="/" replace />}
-      />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 };

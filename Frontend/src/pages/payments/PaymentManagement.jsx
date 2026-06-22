@@ -1,20 +1,27 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import PaymentTable from "../../components/payments/PaymentTable";
+import PaymentStats from "../../components/payments/PaymentStats";
+
 import { getPayments } from "../../services/paymentService";
-import { useNavigate } from "react-router-dom";
 
 export default function PaymentManagement() {
   const navigate = useNavigate();
 
   const [payments, setPayments] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchPayments = async () => {
     try {
       const res = await getPayments();
+
       setPayments(res.data.payments);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -25,6 +32,7 @@ export default function PaymentManagement() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
+
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">
             Payment Management
@@ -40,10 +48,19 @@ export default function PaymentManagement() {
           </button>
         </div>
 
-        <PaymentTable
-          payments={payments}
-          refreshPayments={fetchPayments}
-        />
+        <PaymentStats payments={payments} />
+
+        {loading ? (
+          <div className="bg-white p-6 rounded-xl shadow">
+            Loading Payments...
+          </div>
+        ) : (
+          <PaymentTable
+            payments={payments}
+            refreshPayments={fetchPayments}
+          />
+        )}
+
       </div>
     </DashboardLayout>
   );

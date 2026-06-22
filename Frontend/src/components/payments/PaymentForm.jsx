@@ -7,80 +7,70 @@ import api from "../../services/api";
 export default function PaymentForm() {
   const navigate = useNavigate();
 
-  const [enrollments, setEnrollments] =
-    useState([]);
+  const [enrollments, setEnrollments] = useState([]);
 
-  const [formData, setFormData] =
-    useState({
-      enrollmentId: "",
-      amount: "",
-      paymentMethod: "",
-      transactionId: "",
-      paymentStatus: "Paid",
-    });
+  const [formData, setFormData] = useState({
+    enrollmentId: "",
+    amount: "",
+    paymentMethod: "",
+    transactionId: "",
+    paymentStatus: "Paid",
+  });
 
   useEffect(() => {
     loadEnrollments();
   }, []);
 
   const loadEnrollments = async () => {
-    const res = await api.get(
-      "/enrollment/all"
-    );
+    const res = await api.get("/enrollments/all");
 
-    setEnrollments(
-      res.data.enrollments
-    );
+    setEnrollments(res.data.enrollments);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    await createPayment(formData);
+ try {
+  await createPayment(formData);
 
-    navigate("/payments");
-  };
+  alert("Payment Created Successfully");
 
+  navigate("/payments");
+} catch (error) {
+  console.log(error.response?.data);
+
+  alert(
+    error.response?.data?.message ||
+      error.message
+  );
+}};
   return (
     <div className="bg-white rounded-xl shadow p-6 max-w-2xl">
-      <h2 className="text-xl font-bold mb-6">
-        Create Payment
-      </h2>
+      <h2 className="text-xl font-bold mb-6">Create Payment</h2>
 
-      <form
-        onSubmit={handleSubmit}
-        className="space-y-4"
-      >
+      <form onSubmit={handleSubmit} className="space-y-4">
         <select
           className="w-full border p-3 rounded-lg"
           value={formData.enrollmentId}
           onChange={(e) =>
             setFormData({
               ...formData,
-              enrollmentId:
-                e.target.value,
+              enrollmentId: e.target.value,
             })
           }
         >
-          <option value="">
-            Select Enrollment
-          </option>
+          <option value="">Select Enrollment</option>
 
           {enrollments.map((enrollment) => (
-            <option
-              key={enrollment._id}
-              value={enrollment._id}
-            >
-              {
-                enrollment.studentId
-                  ?.name
-              }
+            <option key={enrollment._id} value={enrollment._id}>
+              {enrollment.studentId?.name}
             </option>
           ))}
         </select>
 
         <input
           type="number"
+          required
           placeholder="Amount"
           className="w-full border p-3 rounded-lg"
           value={formData.amount}
@@ -94,74 +84,52 @@ export default function PaymentForm() {
 
         <select
           className="w-full border p-3 rounded-lg"
-          value={
-            formData.paymentMethod
-          }
+          value={formData.paymentMethod}
           onChange={(e) =>
             setFormData({
               ...formData,
-              paymentMethod:
-                e.target.value,
+              paymentMethod: e.target.value,
             })
           }
         >
-          <option value="">
-            Payment Method
-          </option>
+          <option value="">Payment Method</option>
 
-          <option value="Cash">
-            Cash
-          </option>
+          <option value="Cash">Cash</option>
 
-          <option value="UPI">
-            UPI
-          </option>
+          <option value="UPI">UPI</option>
 
-          <option value="Card">
-            Card
-          </option>
+          <option value="Card">Card</option>
         </select>
 
         <input
           type="text"
+          required
           placeholder="Transaction ID"
           className="w-full border p-3 rounded-lg"
-          value={
-            formData.transactionId
-          }
+          value={formData.transactionId}
           onChange={(e) =>
             setFormData({
               ...formData,
-              transactionId:
-                e.target.value,
+              transactionId: e.target.value,
             })
           }
         />
 
         <select
           className="w-full border p-3 rounded-lg"
-          value={
-            formData.paymentStatus
-          }
+          value={formData.paymentStatus}
           onChange={(e) =>
             setFormData({
               ...formData,
-              paymentStatus:
-                e.target.value,
+              paymentStatus: e.target.value,
             })
           }
         >
-          <option value="Paid">
-            Paid
-          </option>
+          <option value="Paid">Paid</option>
 
-          <option value="Pending">
-            Pending
-          </option>
+          <option value="Pending">Pending</option>
 
-          <option value="Partial">
-            Partial
-          </option>
+          <option value="Failed">Failed</option>
         </select>
 
         <button className="bg-blue-600 text-white px-5 py-2 rounded-lg">

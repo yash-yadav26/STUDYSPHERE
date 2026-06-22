@@ -15,22 +15,36 @@ export default function InvoiceForm() {
   }, []);
 
   const loadPayments = async () => {
-    const res = await api.get("/payment/all");
-    setPayments(res.data.payments || []);
+    try {
+      const res = await api.get("/payments/all");
+
+      setPayments(res.data.payments);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!paymentId) {
+      return alert("Please select a payment");
+    }
 
     try {
       await createInvoice({
         paymentId,
       });
 
+      alert("Invoice Generated Successfully");
+
       navigate("/invoices");
     } catch (error) {
+      console.log(error);
+
       alert(
-        error.response?.data?.message
+        error.response?.data?.message ||
+          "Failed to generate invoice"
       );
     }
   };
@@ -61,13 +75,15 @@ export default function InvoiceForm() {
               key={payment._id}
               value={payment._id}
             >
-              {payment.transactionId} - ₹
-              {payment.amount}
+              {payment.transactionId} - ₹{payment.amount}
             </option>
           ))}
         </select>
 
-        <button className="bg-blue-600 text-white px-5 py-2 rounded-lg">
+        <button
+          type="submit"
+          className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700"
+        >
           Generate Invoice
         </button>
       </form>

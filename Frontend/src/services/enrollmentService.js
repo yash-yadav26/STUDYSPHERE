@@ -1,13 +1,9 @@
 import api from "./api";
 
-export const getEnrollments = () =>
-  api.get("/enrollment/all");
+export const getEnrollments = () => api.get("/enrollments/all");
 
-export const getEnrollmentById = (id) =>
-  api.get(`/enrollment/${id}`);
+export const getEnrollmentById = (id) => api.get(`/enrollments/${id}`);
 
-export const createEnrollment = (data) =>
-  api.post("/enrollment/create", data);
+export const createEnrollment = (data) => api.post("/enrollments/create", data);
 
-export const deleteEnrollment = (id) =>
-  api.delete(`/enrollment/delete/${id}`);
+export const deleteEnrollment = (id) => api.delete(`/enrollments/delete/${id}`);

@@ -11,7 +11,7 @@ export const useStudents = () => {
 
       const res = await getStudents();
 
-      setStudents(res.data);
+      setStudents(res.data.students);
     } catch (error) {
       console.error(error);
     } finally {

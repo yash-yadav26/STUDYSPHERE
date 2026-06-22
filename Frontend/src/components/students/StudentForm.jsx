@@ -1,18 +1,15 @@
 import { useState } from "react";
 
-const StudentForm = ({
-  initialData = {},
-  onSubmit,
-  loading = false,
-}) => {
+const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
   const [formData, setFormData] = useState({
-    firstName: initialData.firstName || "",
-    lastName: initialData.lastName || "",
+    name: initialData.name || "",
     email: initialData.email || "",
     phone: initialData.phone || "",
-    gender: initialData.gender || "",
+    admissionDate: initialData.admissionDate
+      ? initialData.admissionDate.split("T")[0]
+      : "",
     address: initialData.address || "",
-    status: initialData.status || "ACTIVE",
+    status: initialData.status || "Active",
   });
 
   const handleChange = (e) => {
@@ -24,30 +21,18 @@ const StudentForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Form Submitted");
     onSubmit(formData);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-xl shadow"
-    >
+    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         <input
           type="text"
-          name="firstName"
-          placeholder="First Name"
-          value={formData.firstName}
-          onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
-          required
-        />
-
-        <input
-          type="text"
-          name="lastName"
-          placeholder="Last Name"
-          value={formData.lastName}
+          name="name"
+          placeholder="Student Name"
+          value={formData.name}
           onChange={handleChange}
           className="border rounded-lg px-4 py-3"
           required
@@ -73,17 +58,14 @@ const StudentForm = ({
           required
         />
 
-        <select
-          name="gender"
-          value={formData.gender}
+        <input
+          type="date"
+          name="admissionDate"
+          value={formData.admissionDate}
           onChange={handleChange}
           className="border rounded-lg px-4 py-3"
-        >
-          <option value="">Select Gender</option>
-          <option value="MALE">Male</option>
-          <option value="FEMALE">Female</option>
-          <option value="OTHER">Other</option>
-        </select>
+          required
+        />
 
         <select
           name="status"
@@ -91,8 +73,8 @@ const StudentForm = ({
           onChange={handleChange}
           className="border rounded-lg px-4 py-3"
         >
-          <option value="ACTIVE">Active</option>
-          <option value="INACTIVE">Inactive</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
         </select>
       </div>
 
@@ -103,6 +85,7 @@ const StudentForm = ({
         onChange={handleChange}
         className="w-full border rounded-lg px-4 py-3 mt-5"
         rows={4}
+        required
       />
 
       <button
