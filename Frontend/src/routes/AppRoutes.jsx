@@ -26,7 +26,7 @@ import CreatePayment from "../pages/payments/CreatePayment";
 
 import InvoiceManagement from "../pages/invoices/InvoiceManagement";
 import InvoiceDetails from "../pages/invoices/InvoiceDetails";
-import CreateInvoice from "../pages/invoices/CreatInvoice";
+import CreateInvoice from "../pages/invoices/CreateInvoice";
 
 import Reports from "../pages/reports/Reports";
 
