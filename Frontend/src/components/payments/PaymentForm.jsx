@@ -17,15 +17,15 @@ export default function PaymentForm() {
     paymentStatus: "Paid",
   });
 
-  useEffect(() => {
-    loadEnrollments();
-  }, []);
 
+useEffect(() => {
   const loadEnrollments = async () => {
     const res = await api.get("/enrollments/all");
 
     setEnrollments(res.data.enrollments);
   };
+  loadEnrollments();
+}, []);
 
 const handleSubmit = async (e) => {
   e.preventDefault();

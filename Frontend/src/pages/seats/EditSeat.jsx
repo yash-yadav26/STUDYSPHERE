@@ -8,14 +8,14 @@ export default function EditSeat() {
 
   const [seatNumber, setSeatNumber] = useState("");
 
-  useEffect(() => {
-    loadSeat();
-  }, []);
-
+useEffect(() => {
   const loadSeat = async () => {
     const res = await getSeatByID(id);
     setSeatNumber(res.data.seat.seatNumber);
   };
+
+  loadSeat();
+}, [id]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();

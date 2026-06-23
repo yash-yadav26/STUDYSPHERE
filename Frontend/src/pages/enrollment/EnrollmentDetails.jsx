@@ -10,10 +10,7 @@ const EnrollmentDetails = () => {
   const [enrollment, setEnrollment] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchEnrollment();
-  }, [id]);
-
+useEffect(() => {
   const fetchEnrollment = async () => {
     try {
       const res = await getEnrollmentById(id);
@@ -25,7 +22,8 @@ const EnrollmentDetails = () => {
       setLoading(false);
     }
   };
-
+  fetchEnrollment();
+}, [id]);
   if (loading) {
     return (
       <DashboardLayout>

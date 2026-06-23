@@ -8,10 +8,7 @@ const StudentSelector = ({
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadStudents();
-  }, []);
-
+useEffect(() => {
   const loadStudents = async () => {
     try {
       const res = await getStudents();
@@ -23,7 +20,8 @@ const StudentSelector = ({
       setLoading(false);
     }
   };
-
+loadStudents();
+}, []);
   return (
     <div className="bg-white p-6 rounded-xl shadow">
       <h2 className="font-semibold mb-4">

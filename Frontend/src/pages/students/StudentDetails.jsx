@@ -7,10 +7,7 @@ const StudentDetails = () => {
 
   const [student, setStudent] = useState(null);
 
-  useEffect(() => {
-    fetchStudent();
-  }, []);
-
+useEffect(() => {
   const fetchStudent = async () => {
     try {
       const res = await getStudentById(id);
@@ -24,7 +21,8 @@ const StudentDetails = () => {
   if (!student) {
     return <p>Loading...</p>;
   }
-
+fetchStudent();
+}, [id, student]);
   return (
     <div className="bg-white p-6 rounded-xl shadow">
       <h1 className="text-2xl font-bold mb-6">

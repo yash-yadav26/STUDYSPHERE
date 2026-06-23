@@ -10,10 +10,7 @@ export default function InvoiceForm() {
   const [payments, setPayments] = useState([]);
   const [paymentId, setPaymentId] = useState("");
 
-  useEffect(() => {
-    loadPayments();
-  }, []);
-
+useEffect(() => {
   const loadPayments = async () => {
     try {
       const res = await api.get("/payments/all");
@@ -23,6 +20,8 @@ export default function InvoiceForm() {
       console.log(error);
     }
   };
+  loadPayments();
+}, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

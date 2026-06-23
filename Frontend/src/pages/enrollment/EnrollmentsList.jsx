@@ -12,6 +12,7 @@ const EnrollmentsList = () => {
   const [enrollments, setEnrollments] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
   const fetchEnrollments = async () => {
     try {
       const res = await getEnrollments();
@@ -23,11 +24,8 @@ const EnrollmentsList = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    fetchEnrollments();
-  }, []);
-
+fetchEnrollments();
+}, []);
   return (
     <DashboardLayout>
       <div className="space-y-6">

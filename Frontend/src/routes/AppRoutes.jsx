@@ -35,21 +35,15 @@ const AppRoutes = () => {
     <Routes>
       {/* Public Routes */}
 
-      <Route path="/login" element={<Login />} />
+<Route path="/" element={<Navigate to="/register" replace />} />
 
-      <Route path="/register" element={<Register />} />
+<Route path="/login" element={<Login />} />
+
+<Route path="/register" element={<Register />} />
 
 
       {/* Protected Routes */}
 
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <Register />
-          </ProtectedRoute>
-        }
-      />
 
 
       <Route
@@ -236,7 +230,7 @@ const AppRoutes = () => {
 
       {/* Fallback */}
 
-      <Route path="*" element={<Navigate to="/" replace />} />
+<Route path="*" element={<Navigate to="/register" replace />} />
     </Routes>
   );
 };

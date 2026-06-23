@@ -20,10 +20,7 @@ export default function Reports() {
   const [seats, setSeats] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
+useEffect(() => {
   const loadData = async () => {
     try {
       const [
@@ -62,7 +59,8 @@ export default function Reports() {
       setLoading(false);
     }
   };
-
+loadData();
+}, []);
   const revenue = payments.reduce(
     (sum, payment) =>
       payment.paymentStatus === "Paid"

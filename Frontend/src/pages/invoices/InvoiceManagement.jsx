@@ -11,41 +11,33 @@ export default function InvoiceManagement() {
   const [invoices, setInvoices] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const loadInvoices = async () => {
-    try {
-      const res = await getInvoices();
-
-      setInvoices(res.data.invoices || []);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    loadInvoices();
+    const fetchInvoices = async () => {
+      try {
+        const res = await getInvoices();
+        setInvoices(res.data.invoices || []);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInvoices();
   }, []);
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
-
         <div className="flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold">
-              Invoice Management
-            </h1>
+            <h1 className="text-2xl font-bold">Invoice Management</h1>
 
-            <p className="text-gray-500">
-              Manage all generated invoices
-            </p>
+            <p className="text-gray-500">Manage all generated invoices</p>
           </div>
 
           <button
-            onClick={() =>
-              navigate("/invoices/create")
-            }
+            onClick={() => navigate("/invoices/create")}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Generate Invoice
@@ -59,10 +51,16 @@ export default function InvoiceManagement() {
         ) : (
           <InvoiceTable
             invoices={invoices}
-            refreshInvoices={loadInvoices}
+            refreshInvoices={async () => {
+              try {
+                const res = await getInvoices();
+                setInvoices(res.data.invoices || []);
+              } catch (error) {
+                console.log(error);
+              }
+            }}
           />
         )}
-
       </div>
     </DashboardLayout>
   );

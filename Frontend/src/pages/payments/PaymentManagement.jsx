@@ -13,35 +13,31 @@ export default function PaymentManagement() {
   const [payments, setPayments] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchPayments = async () => {
-    try {
-      const res = await getPayments();
-
-      setPayments(res.data.payments);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchPayments = async () => {
+      try {
+        const res = await getPayments();
+        setPayments(res.data.payments || []);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchPayments();
   }, []);
 
   return (
     <DashboardLayout>
       <div className="space-y-6">
-
         <div className="flex justify-between items-center">
           <h1 className="text-2xl font-bold">
             Payment Management
           </h1>
 
           <button
-            onClick={() =>
-              navigate("/payments/create")
-            }
+            onClick={() => navigate("/payments/create")}
             className="bg-blue-600 text-white px-4 py-2 rounded-lg"
           >
             Add Payment
@@ -57,10 +53,16 @@ export default function PaymentManagement() {
         ) : (
           <PaymentTable
             payments={payments}
-            refreshPayments={fetchPayments}
+            refreshPayments={async () => {
+              try {
+                const res = await getPayments();
+                setPayments(res.data.payments || []);
+              } catch (error) {
+                console.error(error);
+              }
+            }}
           />
         )}
-
       </div>
     </DashboardLayout>
   );

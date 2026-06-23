@@ -8,16 +8,15 @@ export default function SeatManagement() {
   const [seats, setSeats] = useState([]);
   const navigate = useNavigate();
 
-  const fetchSeats = async () => {
-    try {
-      const res = await getSeats();
-      setSeats(res.data.seats);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const fetchSeats = async () => {
+      try {
+        const res = await getSeats();
+        setSeats(res.data.seats);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     fetchSeats();
   }, []);
 
@@ -35,7 +34,17 @@ export default function SeatManagement() {
           </button>
         </div>
 
-        <SeatTable seats={seats} refreshSeats={fetchSeats} />
+        <SeatTable
+          seats={seats}
+          refreshSeats={async () => {
+            try {
+              const res = await getSeats();
+              setSeats(res.data.seats || []);
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+        />
       </div>
     </DashboardLayout>
   );

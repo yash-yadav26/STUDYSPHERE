@@ -13,10 +13,7 @@ const EditStudent = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchStudent();
-  }, []);
-
+useEffect(() => {
   const fetchStudent = async () => {
     try {
       const res = await getStudentById(id);
@@ -27,6 +24,8 @@ const EditStudent = () => {
       setLoading(false);
     }
   };
+  fetchStudent();
+}, [id]);
 
   const handleUpdate = async (data) => {
     try {

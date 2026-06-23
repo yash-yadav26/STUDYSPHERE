@@ -10,6 +10,7 @@ export default function PaymentDetails() {
   const [payment, setPayment] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
   const loadPayment = async () => {
     try {
       const res = await getPaymentById(id);
@@ -21,10 +22,9 @@ export default function PaymentDetails() {
       setLoading(false);
     }
   };
+  loadPayment();
+} , [id])
 
-  useEffect(() => {
-    loadPayment();
-  }, [id]);
 
   if (loading) {
     return (

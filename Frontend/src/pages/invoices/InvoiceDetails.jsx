@@ -11,10 +11,7 @@ export default function InvoiceDetails() {
   const [invoice, setInvoice] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadInvoice();
-  }, [id]);
-
+useEffect(() => {
   const loadInvoice = async () => {
     try {
       const res = await getInvoiceById(id);
@@ -26,7 +23,8 @@ export default function InvoiceDetails() {
       setLoading(false);
     }
   };
-
+loadInvoice();
+}, [id]);
   if (loading) {
     return (
       <DashboardLayout>

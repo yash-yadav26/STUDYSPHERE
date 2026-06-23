@@ -5,6 +5,7 @@ export const useStudents = () => {
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
   const fetchStudents = async () => {
     try {
       setLoading(true);
@@ -18,14 +19,12 @@ export const useStudents = () => {
       setLoading(false);
     }
   };
+  fetchStudents();
+}, []);
 
-  useEffect(() => {
-    fetchStudents();
-  }, []);
 
   return {
     students,
     loading,
-    fetchStudents,
   };
 };
