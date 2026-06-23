@@ -29,8 +29,8 @@ const Login = () => {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData
+        "https://studysphere-svfv.onrender.com/api/auth/register",
+        formData,
       );
 
       const { admin, token } = res.data;
@@ -43,10 +43,7 @@ const Login = () => {
     } catch (error) {
       console.error("Login Error:", error);
 
-      alert(
-        error?.response?.data?.message ||
-          "Invalid email or password"
-      );
+      alert(error?.response?.data?.message || "Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -55,23 +52,13 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
       <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-lg">
+        <h1 className="text-3xl font-bold text-center mb-2">StudySphere</h1>
 
-        <h1 className="text-3xl font-bold text-center mb-2">
-          StudySphere
-        </h1>
+        <p className="text-center text-gray-500 mb-8">Admin Login</p>
 
-        <p className="text-center text-gray-500 mb-8">
-          Admin Login
-        </p>
-
-        <form
-          onSubmit={handleSubmit}
-          className="space-y-5"
-        >
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block mb-2 text-sm font-medium">
-              Email
-            </label>
+            <label className="block mb-2 text-sm font-medium">Email</label>
 
             <input
               type="email"
@@ -85,9 +72,7 @@ const Login = () => {
           </div>
 
           <div>
-            <label className="block mb-2 text-sm font-medium">
-              Password
-            </label>
+            <label className="block mb-2 text-sm font-medium">Password</label>
 
             <input
               type="password"
@@ -100,13 +85,8 @@ const Login = () => {
             />
           </div>
 
-          <Button
-            type="submit"
-            disabled={loading}
-          >
-            {loading
-              ? "Logging in..."
-              : "Login"}
+          <Button type="submit" disabled={loading}>
+            {loading ? "Logging in..." : "Login"}
           </Button>
         </form>
       </div>
