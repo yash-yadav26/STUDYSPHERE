@@ -29,7 +29,7 @@ const Login = () => {
       setLoading(true);
 
       const res = await axios.post(
-        "https://studysphere-svfv.onrender.com/api/auth/register",
+        "https://studysphere-svfv.onrender.com/api/auth/login",
         formData,
       );
 
