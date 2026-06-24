@@ -30,7 +30,7 @@ const handleCreateStudent = async (data) => {
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold">
-        Add Student
+        Enroll New Student
       </h1>
 
       <StudentForm
