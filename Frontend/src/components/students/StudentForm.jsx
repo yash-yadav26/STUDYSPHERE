@@ -194,7 +194,7 @@ duration-300
 
           {availableSeats.map((seat) => (
             <option key={seat._id} value={seat._id}>
-              Seat {seat.seatNumber}
+               {seat.seatNumber}
             </option>
           ))}
         </select>
