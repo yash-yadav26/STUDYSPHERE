@@ -26,6 +26,20 @@ const createStudent = async (req, res) => {
       amount,
       paymentMethod,
     } = req.body;
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0);
+
+    const selectedDate = new Date(admissionDate);
+
+    selectedDate.setHours(0, 0, 0, 0);
+
+    if (selectedDate < today) {
+      return res.status(400).json({
+        success: false,
+        message: "Admission date cannot be in the past",
+      });
+    }
 
     if (
       !name ||
@@ -47,8 +61,7 @@ const createStudent = async (req, res) => {
     if (!validateName(name)) {
       return res.status(400).json({
         success: false,
-        message:
-          "Name must contain only alphabets and spaces",
+        message: "Name must contain only alphabets and spaces",
       });
     }
 
@@ -62,8 +75,7 @@ const createStudent = async (req, res) => {
     if (!validatePhone(phone)) {
       return res.status(400).json({
         success: false,
-        message:
-          "Phone must be 10 digits and start with 6,7,8 or 9",
+        message: "Phone must be 10 digits and start with 6,7,8 or 9",
       });
     }
 
@@ -124,25 +136,21 @@ const createStudent = async (req, res) => {
     }
 
     if (planType === "Yearly Pass") {
-      endDate.setFullYear(
-        endDate.getFullYear() + 1
-      );
+      endDate.setFullYear(endDate.getFullYear() + 1);
     }
 
-    const enrollment =
-      await Enrollment.create({
-        studentId: student._id,
-        seatId,
-        planType,
-        startDate: admissionDate,
-        endDate,
-      });
+    const enrollment = await Enrollment.create({
+      studentId: student._id,
+      seatId,
+      planType,
+      startDate: admissionDate,
+      endDate,
+    });
 
     seat.status = "Occupied";
     await seat.save();
 
-    const transactionId =
-      "TXN-" + Date.now();
+    const transactionId = "TXN-" + Date.now();
 
     const payment = await Payment.create({
       enrollmentId: enrollment._id,
@@ -154,8 +162,7 @@ const createStudent = async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message:
-        "Student admission completed successfully",
+      message: "Student admission completed successfully",
       student,
       enrollment,
       payment,
@@ -191,19 +198,15 @@ const getAllStudents = async (req, res) => {
         return {
           ...student.toObject(),
 
-          seatNumber:
-            enrollment?.seatId?.seatNumber || "-",
+          seatNumber: enrollment?.seatId?.seatNumber || "-",
 
-          planType:
-            enrollment?.planType || "-",
+          planType: enrollment?.planType || "-",
 
-          paymentMethod:
-            payment?.paymentMethod || "-",
+          paymentMethod: payment?.paymentMethod || "-",
 
-          paymentStatus:
-            payment?.paymentStatus || "-",
+          paymentStatus: payment?.paymentStatus || "-",
         };
-      })
+      }),
     );
 
     res.status(200).json({
