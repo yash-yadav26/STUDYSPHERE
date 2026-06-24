@@ -51,15 +51,48 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow">
-      <div className="grid md:grid-cols-2 gap-5">
+    <form
+      onSubmit={handleSubmit}
+      className="
+    bg-white
+    rounded-3xl
+    shadow-xl
+    border
+    border-slate-100
+    p-8
+  "
+    >
+      <div className="mb-8">
+        <div className="bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl p-6 text-white">
+          <h2 className="text-2xl font-bold">Student Enrollment</h2>
+
+          <p className="text-indigo-100 mt-2">
+            Assign seat, select membership plan and collect payment.
+          </p>
+        </div>
+      </div>
+      <div className="grid md:grid-cols-2 gap-6">
         <input
           type="text"
           name="name"
           placeholder="Student Name"
           value={formData.name}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="
+w-full
+px-4
+py-3
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-indigo-500
+transition-all
+duration-300
+"
           required
         />
 
@@ -69,7 +102,21 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="
+w-full
+px-4
+py-3
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-indigo-500
+transition-all
+duration-300
+"
           required
         />
 
@@ -79,7 +126,21 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           placeholder="Phone Number"
           value={formData.phone}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="
+w-full
+px-4
+py-3
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-indigo-500
+transition-all
+duration-300
+"
           required
         />
 
@@ -88,7 +149,21 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           name="admissionDate"
           value={formData.admissionDate}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="
+w-full
+px-4
+py-3
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-indigo-500
+transition-all
+duration-300
+"
           required
         />
 
@@ -98,7 +173,21 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           name="seatId"
           value={formData.seatId}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="
+w-full
+px-4
+py-3
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-indigo-500
+transition-all
+duration-300
+"
           required
         >
           <option value="">Select Available Seat</option>
@@ -116,7 +205,21 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           name="planType"
           value={formData.planType}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="
+w-full
+px-4
+py-3
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-indigo-500
+transition-all
+duration-300
+"
           required
         >
           <option value="">Select Plan</option>
@@ -137,7 +240,21 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           placeholder="Amount Paid"
           value={formData.amount}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="
+w-full
+px-4
+py-3
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-indigo-500
+transition-all
+duration-300
+"
           required
         />
 
@@ -147,7 +264,21 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           name="paymentMethod"
           value={formData.paymentMethod}
           onChange={handleChange}
-          className="border rounded-lg px-4 py-3"
+          className="
+w-full
+px-4
+py-3
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+focus:border-indigo-500
+transition-all
+duration-300
+"
           required
         >
           <option value="">Payment Method</option>
@@ -167,7 +298,20 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
         placeholder="Address"
         value={formData.address}
         onChange={handleChange}
-        className="w-full border rounded-lg px-4 py-3 mt-5"
+        className="
+w-full
+mt-6
+px-4
+py-4
+rounded-2xl
+border
+border-slate-200
+bg-slate-50
+focus:outline-none
+focus:ring-2
+focus:ring-indigo-500
+resize-none
+"
         rows={4}
         required
       />
@@ -176,16 +320,23 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
         type="submit"
         disabled={loading}
         className="
-          mt-6
-          bg-indigo-600
-          text-white
-          px-6
-          py-3
-          rounded-lg
-          hover:bg-indigo-700
-        "
+mt-8
+bg-gradient-to-r
+from-indigo-600
+to-violet-600
+text-white
+font-semibold
+px-8
+py-3
+rounded-2xl
+shadow-lg
+hover:shadow-xl
+hover:scale-105
+transition-all
+duration-300
+"
       >
-        {loading ? "Saving..." : "Create Admission"}
+        {loading ? "Saving..." : "Enroll Student"}
       </button>
     </form>
   );

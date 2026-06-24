@@ -61,7 +61,7 @@ const handleLogout = () => {
 };
   return (
     <aside
-      className={`fixed left-0 top-0 h-screen bg-slate-900 text-white transition-all duration-300 z-50 ${
+      className={`fixed left-0 top-0 h-screen bg-slate-900 text-white transition-all duration-300 z-50 flex flex-col ${
         sidebarOpen ? "w-64" : "w-20"
       }`}
     >

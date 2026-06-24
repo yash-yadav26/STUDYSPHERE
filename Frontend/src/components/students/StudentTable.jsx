@@ -8,9 +8,15 @@ const StudentTable = ({
 }) => {
   if (!students.length) {
     return (
-      <div className="bg-white p-10 rounded-xl text-center">
-        No students found
-      </div>
+      <div className="bg-white rounded-3xl p-16 text-center shadow-sm">
+  <h3 className="text-xl font-semibold text-slate-700">
+    No Students Found
+  </h3>
+
+  <p className="text-slate-500 mt-2">
+    Start by enrolling your first student.
+  </p>
+</div>
     );
   }
 

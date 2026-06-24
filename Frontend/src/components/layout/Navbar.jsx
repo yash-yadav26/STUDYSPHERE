@@ -8,7 +8,7 @@ const Navbar = ({sidebarOpen}) => {
 
       <div>
         <h2 className="font-bold text-4xl text-blue-900 px-4">
-          Hello...
+          
         </h2>
       </div>
 

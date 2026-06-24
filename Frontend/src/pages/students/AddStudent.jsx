@@ -28,10 +28,7 @@ const handleCreateStudent = async (data) => {
 };
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">
-        Enroll New Student
-      </h1>
+    <div className="p-6">
 
       <StudentForm
         onSubmit={handleCreateStudent}
