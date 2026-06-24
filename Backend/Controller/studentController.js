@@ -40,12 +40,6 @@ const createStudent = async (req, res) => {
         message: "Admission date cannot be in the past",
       });
     }
-    if (Number(totalSeats) <= 0) {
-      return res.status(400).json({
-        success: false,
-        message: "Total seats must be greater than 0",
-      });
-    }
 
     if (
       !name ||
