@@ -16,13 +16,13 @@ const createSeat = async (req, res) => {
     if (!validateSeatNumber(seatNumber)) {
       return res.status(400).json({
         success: false,
-        message: "Seat number must be between 1 and 50000",
+        message:
+          "Seat number must be between 1 and 50000",
       });
     }
 
-    const existingSeat = await Seat.findOne({
-      seatNumber,
-    });
+    const existingSeat =
+      await Seat.findOne({ seatNumber });
 
     if (existingSeat) {
       return res.status(400).json({
@@ -33,6 +33,7 @@ const createSeat = async (req, res) => {
 
     const seat = await Seat.create({
       seatNumber,
+      status: "Available",
     });
 
     res.status(201).json({
@@ -47,6 +48,7 @@ const createSeat = async (req, res) => {
     });
   }
 };
+
 // Get All Seats
 const getAllSeats = async (req, res) => {
   try {
@@ -67,10 +69,12 @@ const getAllSeats = async (req, res) => {
   }
 };
 
-// Get Single Seat
+// Get Seat By Id
 const getSeatById = async (req, res) => {
   try {
-    const seat = await Seat.findById(req.params.id);
+    const seat = await Seat.findById(
+      req.params.id
+    );
 
     if (!seat) {
       return res.status(404).json({
@@ -94,18 +98,28 @@ const getSeatById = async (req, res) => {
 // Update Seat
 const updateSeat = async (req, res) => {
   try {
-    const seat = await Seat.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true,
-    });
-
-    
-    if (req.body.seatNumber && !validateSeatNumber(req.body.seatNumber)) {
+    if (
+      req.body.seatNumber &&
+      !validateSeatNumber(
+        req.body.seatNumber
+      )
+    ) {
       return res.status(400).json({
         success: false,
-        message: "Seat number must be between 1 and 50000",
+        message:
+          "Seat number must be between 1 and 50000",
       });
     }
+
+    const seat =
+      await Seat.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
 
     if (!seat) {
       return res.status(404).json({
@@ -130,7 +144,8 @@ const updateSeat = async (req, res) => {
 // Delete Seat
 const deleteSeat = async (req, res) => {
   try {
-    const seat = await Seat.findByIdAndDelete(req.params.id);
+    const seat =
+      await Seat.findById(req.params.id);
 
     if (!seat) {
       return res.status(404).json({
@@ -138,6 +153,18 @@ const deleteSeat = async (req, res) => {
         message: "Seat not found",
       });
     }
+
+    if (seat.status === "Occupied") {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Cannot delete occupied seat",
+      });
+    }
+
+    await Seat.findByIdAndDelete(
+      req.params.id
+    );
 
     res.status(200).json({
       success: true,

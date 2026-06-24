@@ -10,7 +10,7 @@ const {
   deletePayment,
 } = require("../Controller/paymentController");
 
-router.post("/create", authMiddleware, createPayment);
+
 
 router.get("/all", authMiddleware, getAllPayments);
 

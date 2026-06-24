@@ -1,16 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getSeats } from "../../services/seatService";
 
 const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
+  const [availableSeats, setAvailableSeats] = useState([]);
+
   const [formData, setFormData] = useState({
     name: initialData.name || "",
     email: initialData.email || "",
     phone: initialData.phone || "",
     admissionDate: initialData.admissionDate
       ? initialData.admissionDate.split("T")[0]
-      : "",
+      : new Date().toISOString().split("T")[0],
     address: initialData.address || "",
-    status: initialData.status || "Active",
+
+    seatId: "",
+    planType: "",
+
+    amount: "",
+    paymentMethod: "",
+    transactionId: "",
   });
+
+  useEffect(() => {
+    const loadSeats = async () => {
+      try {
+        const res = await getSeats();
+
+        const available = res.data.seats.filter(
+          (seat) => seat.status === "Available",
+        );
+
+        setAvailableSeats(available);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    loadSeats();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -21,13 +47,12 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted");
     onSubmit(formData);
   };
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid md:grid-cols-2 gap-5">
         <input
           type="text"
           name="name"
@@ -51,7 +76,7 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
         <input
           type="text"
           name="phone"
-          placeholder="Phone"
+          placeholder="Phone Number"
           value={formData.phone}
           onChange={handleChange}
           className="border rounded-lg px-4 py-3"
@@ -67,15 +92,74 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           required
         />
 
+        {/* Seat Selection */}
+
         <select
-          name="status"
-          value={formData.status}
+          name="seatId"
+          value={formData.seatId}
           onChange={handleChange}
           className="border rounded-lg px-4 py-3"
+          required
         >
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
+          <option value="">Select Available Seat</option>
+
+          {availableSeats.map((seat) => (
+            <option key={seat._id} value={seat._id}>
+              Seat {seat.seatNumber}
+            </option>
+          ))}
         </select>
+
+        {/* Plan Selection */}
+
+        <select
+          name="planType"
+          value={formData.planType}
+          onChange={handleChange}
+          className="border rounded-lg px-4 py-3"
+          required
+        >
+          <option value="">Select Plan</option>
+
+          <option value="Hourly Pass">Hourly Pass</option>
+
+          <option value="Daily Pass">Daily Pass</option>
+
+          <option value="Monthly Pass">Monthly Pass</option>
+
+          <option value="Yearly Pass">Yearly Pass</option>
+        </select>
+        {/* Amount */}
+
+        <input
+          type="number"
+          name="amount"
+          placeholder="Amount Paid"
+          value={formData.amount}
+          onChange={handleChange}
+          className="border rounded-lg px-4 py-3"
+          required
+        />
+
+        {/* Payment Method */}
+
+        <select
+          name="paymentMethod"
+          value={formData.paymentMethod}
+          onChange={handleChange}
+          className="border rounded-lg px-4 py-3"
+          required
+        >
+          <option value="">Payment Method</option>
+
+          <option value="Cash">Cash</option>
+
+          <option value="UPI">UPI</option>
+
+          <option value="Card">Card</option>
+        </select>
+
+        {/* Transaction */}
       </div>
 
       <textarea
@@ -101,7 +185,7 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
           hover:bg-indigo-700
         "
       >
-        {loading ? "Saving..." : "Save Student"}
+        {loading ? "Saving..." : "Create Admission"}
       </button>
     </form>
   );

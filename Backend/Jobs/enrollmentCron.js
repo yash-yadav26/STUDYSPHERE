@@ -1,8 +1,9 @@
-    const cron = require("node-cron");
+const cron = require("node-cron");
 const Enrollment = require("../Model/Enrollment");
 const Seat = require("../Model/Seat");
+const Student = require("../Model/Student");
 
-cron.schedule("* * * * *", async () => {
+cron.schedule("0 0 * * *", async () => {
   console.log("Checking expired enrollments...");
 
   const expiredEnrollments =
@@ -19,6 +20,13 @@ cron.schedule("* * * * *", async () => {
       enrollment.seatId,
       {
         status: "Available",
+      }
+    );
+
+    await Student.findByIdAndUpdate(
+      enrollment.studentId,
+      {
+        status: "Inactive",
       }
     );
   }

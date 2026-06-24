@@ -1,7 +1,10 @@
-import { Eye } from "lucide-react";
+import { Eye, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const EnrollmentTable = ({ enrollments }) => {
+const EnrollmentTable = ({
+  enrollments,
+  onDelete,
+}) => {
   const navigate = useNavigate();
 
   if (!enrollments.length) {
@@ -14,62 +17,121 @@ const EnrollmentTable = ({ enrollments }) => {
 
   return (
     <div className="bg-white rounded-xl shadow overflow-hidden">
-      <table className="w-full">
-        <thead>
-          <tr className="bg-slate-100">
-            <th className="p-4 text-left">Student</th>
-            <th className="p-4 text-left">Seat</th>
-            <th className="p-4 text-left">Plan</th>
-            <th className="p-4 text-left">Status</th>
-            <th className="p-4 text-center">Actions</th>
-          </tr>
-        </thead>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr className="bg-slate-100">
+              <th className="p-4 text-left">
+                Student
+              </th>
 
-        <tbody>
-          {enrollments.map((enrollment) => (
-            <tr
-              key={enrollment._id}
-              className="border-t"
-            >
-              <td className="p-4">
-                {enrollment.studentId?.name}
-              </td>
+              <th className="p-4 text-left">
+                Seat
+              </th>
 
-              <td className="p-4">
-                {enrollment.seatId?.seatNumber}
-              </td>
+              <th className="p-4 text-left">
+                Plan
+              </th>
 
-              <td className="p-4">
-                {enrollment.planType}
-              </td>
+              <th className="p-4 text-left">
+                Start Date
+              </th>
 
-              <td className="p-4">
-                <span
-                  className={`px-3 py-1 rounded-full text-xs ${
-                    enrollment.status === "Active"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
-                >
-                  {enrollment.status}
-                </span>
-              </td>
+              <th className="p-4 text-left">
+                End Date
+              </th>
 
-              <td className="p-4 text-center">
-                <button
-                  onClick={() =>
-                    navigate(
-                      `/enrollments/${enrollment._id}`
-                    )
-                  }
-                >
-                  <Eye size={18} />
-                </button>
-              </td>
+              <th className="p-4 text-left">
+                Status
+              </th>
+
+              <th className="p-4 text-center">
+                Actions
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {enrollments.map(
+              (enrollment) => (
+                <tr
+                  key={enrollment._id}
+                  className="border-t"
+                >
+                  <td className="p-4">
+                    {
+                      enrollment.studentId
+                        ?.name
+                    }
+                  </td>
+
+                  <td className="p-4">
+                    {
+                      enrollment.seatId
+                        ?.seatNumber
+                    }
+                  </td>
+
+                  <td className="p-4">
+                    {enrollment.planType}
+                  </td>
+
+                  <td className="p-4">
+                    {new Date(
+                      enrollment.startDate
+                    ).toLocaleDateString()}
+                  </td>
+
+                  <td className="p-4">
+                    {new Date(
+                      enrollment.endDate
+                    ).toLocaleDateString()}
+                  </td>
+
+                  <td className="p-4">
+                    <span
+                      className={`px-3 py-1 rounded-full text-xs ${
+                        enrollment.status ===
+                        "Active"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-red-100 text-red-700"
+                      }`}
+                    >
+                      {enrollment.status}
+                    </span>
+                  </td>
+
+                  <td className="p-4">
+                    <div className="flex justify-center gap-3">
+                      <button
+                        onClick={() =>
+                          navigate(
+                            `/enrollments/${enrollment._id}`
+                          )
+                        }
+                      >
+                        <Eye size={18} />
+                      </button>
+
+                      <button
+                        onClick={() =>
+                          onDelete(
+                            enrollment._id
+                          )
+                        }
+                      >
+                        <Trash2
+                          size={18}
+                        />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

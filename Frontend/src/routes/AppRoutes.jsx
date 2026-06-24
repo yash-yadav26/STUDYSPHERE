@@ -11,10 +11,9 @@ import EditStudent from "../pages/students/EditStudent";
 import StudentDetails from "../pages/students/StudentDetails";
 
 import EnrollmentsList from "../pages/enrollment/EnrollmentsList";
-import AddEnrollment from "../pages/enrollment/AddEnrollment";
 import EnrollmentDetails from "../pages/enrollment/EnrollmentDetails";
 
-import SeatSelector from "../components/enrollments/SeatSelector";
+
 
 import SeatManagement from "../pages/seats/SeatManagement";
 import AddSeat from "../pages/seats/AddSeat";
@@ -103,14 +102,7 @@ const AppRoutes = () => {
         }
       />
 
-      <Route
-        path="/enrollments/add"
-        element={
-          <ProtectedRoute>
-            <AddEnrollment />
-          </ProtectedRoute>
-        }
-      />
+      
 
       <Route
         path="/enrollments/:id"
@@ -121,14 +113,6 @@ const AppRoutes = () => {
         }
       />
 
-      <Route
-        path="/seat-selector"
-        element={
-          <ProtectedRoute>
-            <SeatSelector />
-          </ProtectedRoute>
-        }
-      />
 
       {/* Seats */}
 

@@ -1,6 +1,11 @@
 import { Eye, Pencil, Trash2 } from "lucide-react";
 
-const StudentTable = ({ students, onView, onEdit, onDelete }) => {
+const StudentTable = ({
+  students,
+  onView,
+  onEdit,
+  onDelete,
+}) => {
   if (!students.length) {
     return (
       <div className="bg-white p-10 rounded-xl text-center">
@@ -15,30 +20,69 @@ const StudentTable = ({ students, onView, onEdit, onDelete }) => {
         <table className="w-full">
           <thead>
             <tr className="bg-slate-100">
-              <th className="p-4 text-left">ID</th>
+              <th className="p-4 text-left">
+                Name
+              </th>
 
-              <th className="p-4 text-left">Name</th>
+              <th className="p-4 text-left">
+                Email
+              </th>
 
-              <th className="p-4 text-left">Email</th>
+              <th className="p-4 text-left">
+                Phone
+              </th>
 
-              <th className="p-4 text-left">Phone</th>
+              <th className="p-4 text-left">
+                Seat
+              </th>
 
-              <th className="p-4 text-left">Status</th>
+              <th className="p-4 text-left">
+                Plan
+              </th>
 
-              <th className="p-4 text-center">Actions</th>
+              <th className="p-4 text-left">
+                Payment
+              </th>
+
+              <th className="p-4 text-left">
+                Status
+              </th>
+
+              <th className="p-4 text-center">
+                Actions
+              </th>
             </tr>
           </thead>
 
           <tbody>
             {students.map((student) => (
-              <tr key={student._id} className="border-t">
-                <td className="p-4">{student._id.slice(-6)}</td>
+              <tr
+                key={student._id}
+                className="border-t"
+              >
+                <td className="p-4">
+                  {student.name}
+                </td>
 
-                <td className="p-4">{student.name}</td>
+                <td className="p-4">
+                  {student.email}
+                </td>
 
-                <td className="p-4">{student.email}</td>
+                <td className="p-4">
+                  {student.phone}
+                </td>
 
-                <td className="p-4">{student.phone}</td>
+                <td className="p-4">
+                  {student.seatNumber}
+                </td>
+
+                <td className="p-4">
+                  {student.planType}
+                </td>
+
+                <td className="p-4">
+                  {student.paymentMethod}
+                </td>
 
                 <td className="p-4">
                   <span
@@ -54,15 +98,27 @@ const StudentTable = ({ students, onView, onEdit, onDelete }) => {
 
                 <td className="p-4">
                   <div className="flex justify-center gap-3">
-                    <button onClick={() => onView(student._id)}>
+                    <button
+                      onClick={() =>
+                        onView(student._id)
+                      }
+                    >
                       <Eye size={18} />
                     </button>
 
-                    <button onClick={() => onEdit(student._id)}>
+                    <button
+                      onClick={() =>
+                        onEdit(student._id)
+                      }
+                    >
                       <Pencil size={18} />
                     </button>
 
-                    <button onClick={() => onDelete(student._id)}>
+                    <button
+                      onClick={() =>
+                        onDelete(student._id)
+                      }
+                    >
                       <Trash2 size={18} />
                     </button>
                   </div>
