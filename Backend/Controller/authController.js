@@ -1,23 +1,30 @@
 const Admin = require("../Model/Admin");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const Seat = require("../Model/Seat");
 const {
   validateName,
   validateEmail,
   validatePhone,
-  validatePassword
+  validatePassword,
 } = require("../utils/validation");
-
 
 // Register
 const register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password, totalSeats } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !totalSeats) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
+      });
+    }
+
+    if (Number(totalSeats) <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Total seats must be greater than 0",
       });
     }
 
@@ -43,12 +50,12 @@ const register = async (req, res) => {
       });
     }
 
-    const existingAdmin = await Admin.findOne({ email });
+    const existingAdmin = await Admin.findOne();
 
     if (existingAdmin) {
       return res.status(400).json({
         success: false,
-        message: "Admin already exists",
+        message: "Admin already registered",
       });
     }
 
@@ -59,7 +66,25 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
     });
+    try {
+      const seats = [];
 
+      for (let i = 1; i <= Number(totalSeats); i++) {
+        seats.push({
+          seatNumber: i,
+          status: "Available",
+        });
+      }
+
+      await Seat.insertMany(seats);
+    } catch (error) {
+      await Admin.findByIdAndDelete(admin._id);
+
+      return res.status(500).json({
+        success: false,
+        message: "Failed to generate seats",
+      });
+    }
     res.status(201).json({
       success: true,
       message: "Admin registered successfully",

@@ -11,8 +11,8 @@ const Register = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-
     password: "",
+    totalSeats: "",
   });
 
   const handleChange = (e) => {
@@ -76,6 +76,14 @@ const Register = () => {
             type="password"
             placeholder="Enter password"
             value={formData.password}
+            onChange={handleChange}
+          />
+          <Input
+            label="Total Seats"
+            name="totalSeats"
+            type="number"
+            placeholder="Enter total library seats"
+            value={formData.totalSeats}
             onChange={handleChange}
           />
 

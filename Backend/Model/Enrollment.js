@@ -16,7 +16,7 @@ const enrollmentSchema = new mongoose.Schema(
 
     planType: {
       type: String,
-      enum: ["Daily Pass", "Monthly Pass", "Full Day Plan"],
+      enum: ["Daily Pass", "Monthly Pass", "Yearly Pass" , "Hourly Pass"],
       required: true,
     },
 
