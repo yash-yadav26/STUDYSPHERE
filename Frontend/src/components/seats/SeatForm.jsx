@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createSeat } from "../../services/seatService";
+import toast from "react-hot-toast";
 
 export default function SeatForm() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ export default function SeatForm() {
 
       navigate("/seats");
     } catch (error) {
-      alert(
+      toast.error(
         error.response?.data?.message
       );
     }

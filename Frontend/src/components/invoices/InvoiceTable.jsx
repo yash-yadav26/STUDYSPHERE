@@ -1,6 +1,7 @@
 import { Eye, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { deleteInvoice } from "../../services/invoiceService";
+import toast from "react-hot-toast";
 
 export default function InvoiceTable({ invoices, refreshInvoices }) {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ export default function InvoiceTable({ invoices, refreshInvoices }) {
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "Failed to delete invoice");
+      toast.error(error.response?.data?.message || "Failed to delete invoice");
     }
   };
 

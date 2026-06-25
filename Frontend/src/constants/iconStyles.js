@@ -1,5 +1,3 @@
-import { UserCheck } from "lucide-react";
-import Dashboard from "../pages/dashboard/Dashboard";
 
 export const iconStyles = {
   students: {

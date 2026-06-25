@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import StudentForm from "../../components/students/StudentForm";
 import { createStudent } from "../../services/studentService";
+import toast from "react-hot-toast";
 
 const AddStudent = () => {
   const navigate = useNavigate();
@@ -13,14 +14,14 @@ const handleCreateStudent = async (data) => {
 
     console.log("Success:", res);
 
-    alert("Student Created");
+    toast.success("Student Created");
 
     navigate("/students");
   } catch (error) {
     console.log("Error:", error);
     console.log("Response:", error?.response);
 
-    alert(
+    toast.error(
       error?.response?.data?.message ||
       "Student creation failed"
     );

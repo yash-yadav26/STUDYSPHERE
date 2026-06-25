@@ -1,4 +1,3 @@
-import { Surface } from "recharts";
 
 export const COLORS = {
   primary: "#14B8A6",

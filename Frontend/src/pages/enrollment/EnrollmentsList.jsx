@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import EnrollmentTable from "../../components/enrollments/EnrollmentTable";
+import toast from "react-hot-toast";
 
 import {
   getEnrollments,
@@ -40,11 +41,11 @@ const EnrollmentsList = () => {
 
       setEnrollments((prev) => prev.filter((item) => item._id !== id));
 
-      alert("Enrollment deleted successfully");
+      toast.success("Enrollment deleted successfully");
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "Failed to delete enrollment");
+      toast.error(error.response?.data?.message || "Failed to delete enrollment");
     }
   };
 

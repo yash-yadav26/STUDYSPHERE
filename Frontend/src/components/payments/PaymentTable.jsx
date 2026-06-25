@@ -1,6 +1,8 @@
 import { Eye, Trash2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { deletePayment } from "../../services/paymentService";
+import toast from "react-hot-toast";
+
 
 export default function PaymentTable({ payments, refreshPayments }) {
   const navigate = useNavigate();
@@ -11,13 +13,13 @@ export default function PaymentTable({ payments, refreshPayments }) {
     try {
       await deletePayment(id);
 
-      alert("Payment Deleted");
+      toast.success("Payment Deleted");
 
       refreshPayments();
     } catch (error) {
       console.log(error);
 
-      alert(error.response?.data?.message || "Delete Failed");
+      toast.error(error.response?.data?.message || "Delete Failed");
     }
   };
   const getStatusClass = (status) => {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import api from "../../services/api";
 import { createInvoice } from "../../services/invoiceService";
@@ -27,7 +28,7 @@ useEffect(() => {
     e.preventDefault();
 
     if (!paymentId) {
-      return alert("Please select a payment");
+      return toast.success("Student Created Successfully");
     }
 
     try {
@@ -35,13 +36,13 @@ useEffect(() => {
         paymentId,
       });
 
-      alert("Invoice Generated Successfully");
+      toast.success("Invoice Generated Successfully");
 
       navigate("/invoices");
     } catch (error) {
       console.log(error);
 
-      alert(
+      toast.error(
         error.response?.data?.message ||
           "Failed to generate invoice"
       );

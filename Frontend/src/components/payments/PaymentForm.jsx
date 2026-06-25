@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { createPayment } from "../../services/paymentService";
 import api from "../../services/api";
+import toast from "react-hot-toast";
 
 export default function PaymentForm() {
   const navigate = useNavigate();
@@ -33,13 +34,13 @@ const handleSubmit = async (e) => {
  try {
   await createPayment(formData);
 
-  alert("Payment Created Successfully");
+  toast.success("Payment Created Successfully");
 
   navigate("/payments");
 } catch (error) {
   console.log(error.response?.data);
 
-  alert(
+  toast.error(
     error.response?.data?.message ||
       error.message
   );

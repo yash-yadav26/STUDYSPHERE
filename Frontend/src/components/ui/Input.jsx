@@ -7,18 +7,46 @@ const Input = ({
   onChange,
 }) => {
   return (
-    <div className="mb-4">
-      <label className="block mb-2 text-sm font-medium">
+    <div className="space-y-2">
+      <label
+        htmlFor={name}
+        className="block text-sm font-semibold text-slate-700"
+      >
         {label}
       </label>
 
       <input
-       name={name}
+        id={name}
+        name={name}
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        autoComplete="off"
+        className="
+          w-full
+          px-5
+          py-3.5
+          rounded-2xl
+          border
+          border-slate-200
+          bg-slate-50
+          text-slate-700
+          placeholder:text-slate-400
+          shadow-sm
+          transition-all
+          duration-300
+          outline-none
+
+          hover:border-indigo-300
+          hover:bg-white
+
+          focus:bg-white
+          focus:border-indigo-500
+          focus:ring-4
+          focus:ring-indigo-100
+          focus:shadow-lg
+        "
       />
     </div>
   );
