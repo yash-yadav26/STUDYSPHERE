@@ -1,6 +1,21 @@
+import { useState } from "react";
+import Pagination from "../common/Pagination";
+
 export default function EnrollmentReport({
   enrollments = [],
 }) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 2;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+
+  const currentEnrollments = enrollments.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <h2 className="font-bold text-lg mb-4">
@@ -26,8 +41,8 @@ export default function EnrollmentReport({
           </thead>
 
           <tbody>
-            {enrollments.length > 0 ? (
-              enrollments.map((item) => (
+            {currentEnrollments.length > 0 ? (
+              currentEnrollments.map((item) => (
                 <tr
                   key={item._id}
                   className="border-b"
@@ -58,6 +73,13 @@ export default function EnrollmentReport({
           </tbody>
         </table>
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalItems={enrollments.length}
+        itemsPerPage={itemsPerPage}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }

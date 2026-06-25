@@ -8,7 +8,7 @@
     <div className="bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 rounded-2xl p-8 text-white shadow-lg  hover:shadow-xl
        hover:-translate-y-1">
 
-      <h1 className="text-3xl font-bold">
+      <h1 className="text-3xl font-bold ">
         Welcome Back, {name} 
       </h1>
 

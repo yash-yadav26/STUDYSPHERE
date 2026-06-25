@@ -1,45 +1,90 @@
+import { useState } from "react";
+import Pagination from "../common/Pagination";
+
 const SeatMap = ({
   seats = [],
 }) => {
-  return (
-    <div className="bg-white rounded-xl min-h-[400px] p-6">
+  const [currentPage, setCurrentPage] = useState(1);
 
+  const itemsPerPage = 20;
+
+  const indexOfLastItem =
+    currentPage * itemsPerPage;
+
+  const indexOfFirstItem =
+    indexOfLastItem - itemsPerPage;
+
+  const currentSeats = seats.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  return (
+    <div className="bg-white rounded-2xl shadow p-6 min-h-[500px] flex flex-col">
+
+      {/* Seats Grid */}
       <div className="grid grid-cols-5 gap-3">
 
-        {seats.slice(0, 20).map(
-          (seat) => (
+        {currentSeats.length > 0 ? (
+          currentSeats.map((seat) => (
             <div
               key={seat._id}
               className={`
-              h-16 rounded-lg flex items-center justify-center
-              font-semibold text-white
-              ${
-                seat.status ===
-                "Available"
-                  ? "bg-emerald-400"
-                  : "bg-rose-400"
-              }
-            `}
+                h-16
+                rounded-xl
+                flex
+                items-center
+                justify-center
+                font-semibold
+                text-white
+                shadow-sm
+                transition
+                hover:scale-105
+                ${
+                  seat.status === "Available"
+                    ? "bg-emerald-500"
+                    : "bg-rose-500"
+                }
+              `}
             >
               {seat.seatNumber}
             </div>
-          )
+          ))
+        ) : (
+          <div className="col-span-5 text-center py-10 text-slate-500">
+            No Seats Found
+          </div>
         )}
 
       </div>
 
-      <div className="flex flex-wrap gap-6 mt-6">
+      {/* Legend */}
+      <div className="flex flex-wrap gap-6 mt-8">
 
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-emerald-400 rounded"></div>
-          <span>Available</span>
+          <div className="w-4 h-4 rounded bg-emerald-500"></div>
+          <span className="text-sm font-medium">
+            Available
+          </span>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="w-4 h-4 bg-rose-400 rounded"></div>
-          <span>Occupied</span>
+          <div className="w-4 h-4 rounded bg-rose-500"></div>
+          <span className="text-sm font-medium">
+            Occupied
+          </span>
         </div>
 
+      </div>
+
+      {/* Pagination */}
+      <div className="mt-auto pt-6">
+        <Pagination
+          currentPage={currentPage}
+          totalItems={seats.length}
+          itemsPerPage={itemsPerPage}
+          onPageChange={setCurrentPage}
+        />
       </div>
 
     </div>

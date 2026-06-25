@@ -1,6 +1,22 @@
+import { useState } from "react";
+import Pagination from "../common/Pagination";
+
 export default function OccupancyReport({
   seats = [],
 }) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const itemsPerPage = 5;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem =
+    indexOfLastItem - itemsPerPage;
+
+  const currentSeats = seats.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <h2 className="font-bold text-lg mb-4">
@@ -22,8 +38,8 @@ export default function OccupancyReport({
           </thead>
 
           <tbody>
-            {seats.length > 0 ? (
-              seats.map((seat) => (
+            {currentSeats.length > 0 ? (
+              currentSeats.map((seat) => (
                 <tr
                   key={seat._id}
                   className="border-b"
@@ -35,8 +51,7 @@ export default function OccupancyReport({
                   <td className="py-3">
                     <span
                       className={`px-3 py-1 rounded-full text-sm ${
-                        seat.status ===
-                        "Occupied"
+                        seat.status === "Occupied"
                           ? "bg-red-100 text-red-700"
                           : "bg-green-100 text-green-700"
                       }`}
@@ -59,6 +74,13 @@ export default function OccupancyReport({
           </tbody>
         </table>
       </div>
+
+      <Pagination
+        currentPage={currentPage}
+        totalItems={seats.length}
+        itemsPerPage={itemsPerPage}
+        onPageChange={setCurrentPage}
+      />
     </div>
   );
 }
