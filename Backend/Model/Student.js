@@ -20,7 +20,6 @@ const studentSchema = new mongoose.Schema(
       unique: true,
     },
 
-
     admissionDate: {
       type: Date,
       required: true,
@@ -31,6 +30,14 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    totalFees:{
+      type:Number,
+      required:true,
+    },
+    remainingAmount: {
+      type: Number,
+      default: 0,
+    },
 
     status: {
       type: String,
@@ -38,6 +45,6 @@ const studentSchema = new mongoose.Schema(
       default: "Active",
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 module.exports = mongoose.model("Student", studentSchema);

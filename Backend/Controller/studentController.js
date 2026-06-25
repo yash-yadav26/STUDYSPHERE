@@ -25,6 +25,7 @@ const createStudent = async (req, res) => {
 
       amount,
       paymentMethod,
+      totalFees,
     } = req.body;
     const today = new Date();
 
@@ -40,7 +41,6 @@ const createStudent = async (req, res) => {
         message: "Admission date cannot be in the past",
       });
     }
-
     if (
       !name ||
       !email ||
@@ -49,12 +49,29 @@ const createStudent = async (req, res) => {
       !address ||
       !seatId ||
       !planType ||
-      !amount ||
+      amount === undefined ||
+      amount === null ||
+      totalFees === undefined ||
+      totalFees === null ||
       !paymentMethod
     ) {
       return res.status(400).json({
         success: false,
         message: "All fields are required",
+      });
+    }
+    // Amount Validation
+    if (isNaN(amount) || Number(amount) < 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Amount must be a positive number",
+      });
+    }
+    // Total Fees Validation
+    if (isNaN(totalFees) || Number(totalFees) <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Total fees must be a positive number",
       });
     }
 
@@ -112,13 +129,22 @@ const createStudent = async (req, res) => {
         message: "Seat already occupied",
       });
     }
+    if (Number(amount) > Number(totalFees)) {
+  return res.status(400).json({
+    success: false,
+    message: "Paid amount cannot be greater than total fees",
+  });
+}
 
+const remainingAmount = Number(totalFees) - Number(amount);
     const student = await Student.create({
       name,
       email,
       phone,
       admissionDate,
       address,
+      totalFees,
+      remainingAmount,
     });
 
     let endDate = new Date(admissionDate);
@@ -154,10 +180,10 @@ const createStudent = async (req, res) => {
 
     const payment = await Payment.create({
       enrollmentId: enrollment._id,
-      amount,
+      amount: Number(amount),
       paymentMethod,
       transactionId,
-      paymentStatus: "Paid",
+      paymentStatus:remainingAmount > 0 ? "Pending" : "Paid", 
     });
 
     res.status(201).json({
