@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { getSeats } from "../../services/seatService";
 
 import DashboardLayout from "../../components/layout/DashboardLayout";
 import StudentStats from "../../components/students/StudentStats";
@@ -16,6 +17,20 @@ const StudentsList = () => {
 
   const [search] = useState("");
   const [status, setStatus] = useState("");
+  const [seats, setSeats] = useState([]);
+
+  useEffect(() => {
+    const loadSeats = async () => {
+      try {
+        const res = await getSeats();
+        setSeats(res.data.seats);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    loadSeats();
+  }, []);
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,7 +45,6 @@ const StudentsList = () => {
 
     return matchesSearch && matchesStatus;
   });
-
 
   // Pagination Logic
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -96,7 +110,7 @@ const StudentsList = () => {
 
         {/* Stats */}
 
-        <StudentStats students={students} />
+        <StudentStats students={students} seats={seats} />
 
         {/* Filter */}
 

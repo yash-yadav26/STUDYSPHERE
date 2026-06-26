@@ -43,9 +43,20 @@ const Dashboard = () => {
 
   const totalStudents = students.length;
 
-  const totalRevenue = payments
-    .filter((p) => p.paymentStatus === "Paid")
-    .reduce((sum, p) => sum + Number(p.amount || 0), 0);
+const today = new Date();
+const todayRevenue = payments
+  .filter((p) => {
+    if (!["Paid", "Pending"].includes(p.paymentStatus)) return false;
+
+    const paymentDate = new Date(p.createdAt);
+
+    return (
+      paymentDate.getDate() === today.getDate() &&
+      paymentDate.getMonth() === today.getMonth() &&
+      paymentDate.getFullYear() === today.getFullYear()
+    );
+  })
+  .reduce((sum, p) => sum + Number(p.amount || 0), 0);
 
   const occupiedSeats = seats.filter(
     (seat) => seat.status === "Occupied",
@@ -64,12 +75,12 @@ const Dashboard = () => {
 
   return (
     <DashboardLayout>
-      <WelcomeCard
-        name={admin?.name || "Admin"}
-        revenue={`₹${totalRevenue}`}
-        students={totalStudents}
-        seats={availableSeats}
-      />
+     <WelcomeCard
+  name={admin?.name || "Admin"}
+  revenue={`₹${todayRevenue}`}
+  students={totalStudents}
+  seats={availableSeats}
+/>
 
       <h2 className="text-2xl font-semibold mt-8 mb-6">Dashboard Statistics</h2>
 
@@ -84,7 +95,7 @@ const Dashboard = () => {
 
         <DashboardCard
           title="Revenue"
-          value={`₹${totalRevenue}`}
+          value={`₹${todayRevenue}`}
           subtitle={`${payments.length} Payments`}
           icon={<IndianRupee size={20} />}
           iconColor={iconStyles.revenue}

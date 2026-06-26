@@ -8,9 +8,21 @@ const paymentSchema = new mongoose.Schema(
       required: true,
     },
 
-    amount: {
+    totalFees: {
       type: Number,
       required: true,
+    },
+
+    paidAmount: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+
+    remainingAmount: {
+      type: Number,
+      required: true,
+      default: 0,
     },
 
     paymentMethod: {

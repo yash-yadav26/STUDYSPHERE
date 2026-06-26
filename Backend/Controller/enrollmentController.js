@@ -3,12 +3,14 @@ const Student = require("../Model/Student");
 const Seat = require("../Model/Seat");
 
 // Create Enrollment
+// Create Enrollment
 const createEnrollment = async (req, res) => {
   try {
     const {
       studentId,
       seatId,
       planType,
+      duration,
       startDate,
     } = req.body;
 
@@ -16,6 +18,7 @@ const createEnrollment = async (req, res) => {
       !studentId ||
       !seatId ||
       !planType ||
+      !duration ||
       !startDate
     ) {
       return res.status(400).json({
@@ -24,8 +27,7 @@ const createEnrollment = async (req, res) => {
       });
     }
 
-    const student =
-      await Student.findById(studentId);
+    const student = await Student.findById(studentId);
 
     if (!student) {
       return res.status(404).json({
@@ -34,8 +36,7 @@ const createEnrollment = async (req, res) => {
       });
     }
 
-    const seat =
-      await Seat.findById(seatId);
+    const seat = await Seat.findById(seatId);
 
     if (!seat) {
       return res.status(404).json({
@@ -53,51 +54,57 @@ const createEnrollment = async (req, res) => {
 
     let endDate = new Date(startDate);
 
-    if (planType === "Hourly Pass") {
-      endDate.setHours(
-        endDate.getHours() + 1
-      );
-    } else if (
-      planType === "Daily Pass"
-    ) {
-      endDate.setDate(
-        endDate.getDate() + 1
-      );
-    } else if (
-      planType === "Monthly Pass"
-    ) {
-      endDate.setMonth(
-        endDate.getMonth() + 1
-      );
-    } else if (
-      planType === "Yearly Pass"
-    ) {
-      endDate.setFullYear(
-        endDate.getFullYear() + 1
-      );
-    } else {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid plan type",
-      });
+    switch (planType) {
+      case "Hourly Pass":
+        endDate.setHours(
+          endDate.getHours() + Number(duration)
+        );
+        break;
+
+      case "Daily Pass":
+        endDate.setDate(
+          endDate.getDate() + Number(duration)
+        );
+        break;
+
+      case "Monthly Pass":
+        endDate.setMonth(
+          endDate.getMonth() + Number(duration)
+        );
+        break;
+
+      case "Yearly Pass":
+        endDate.setFullYear(
+          endDate.getFullYear() + Number(duration)
+        );
+        break;
+
+      default:
+        return res.status(400).json({
+          success: false,
+          message: "Invalid plan type",
+        });
     }
 
-    const enrollment =
-      await Enrollment.create({
-        studentId,
-        seatId,
-        planType,
-        startDate,
-        endDate,
-      });
+    const enrollment = await Enrollment.create({
+      studentId,
+      seatId,
+      planType,
+      duration,
+      startDate,
+      endDate,
+      status: "Active",
+    });
 
     seat.status = "Occupied";
     await seat.save();
 
+    student.status = "Active";
+    await student.save();
+
     res.status(201).json({
       success: true,
-      message:
-        "Enrollment created successfully",
+      message: "Enrollment created successfully",
       enrollment,
     });
   } catch (error) {

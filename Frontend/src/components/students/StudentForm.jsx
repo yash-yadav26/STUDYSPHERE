@@ -27,6 +27,7 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
 
     seatId: "",
     planType: "",
+    duration: 1,
 
     totalFees: "",
     amount: "",
@@ -280,6 +281,45 @@ const StudentForm = ({ initialData = {}, onSubmit, loading = false }) => {
 
               <option value="Yearly Pass">Yearly Pass</option>
             </select>
+          </div>
+
+          {/* Duration */}
+
+          <div>
+            <label className="font-medium text-slate-700 mb-2 flex items-center gap-2">
+              <Calendar size={18} />
+              {formData.planType === "Hourly Pass"
+                ? "Hours"
+                : formData.planType === "Daily Pass"
+                  ? "Days"
+                  : formData.planType === "Monthly Pass"
+                    ? "Months"
+                    : formData.planType === "Yearly Pass"
+                      ? "Years"
+                      : "Duration"}
+            </label>
+
+            <input
+              type="number"
+              name="duration"
+              min="1"
+              value={formData.duration}
+              onChange={handleChange}
+              placeholder="Enter Duration"
+              className="
+      w-full
+      rounded-2xl
+      border
+      border-slate-200
+      bg-slate-50
+      px-4
+      py-3
+      focus:ring-2
+      focus:ring-indigo-500
+      focus:outline-none
+    "
+              required
+            />
           </div>
           {/* Total Fees */}
 

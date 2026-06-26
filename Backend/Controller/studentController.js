@@ -130,13 +130,13 @@ const createStudent = async (req, res) => {
       });
     }
     if (Number(amount) > Number(totalFees)) {
-  return res.status(400).json({
-    success: false,
-    message: "Paid amount cannot be greater than total fees",
-  });
-}
+      return res.status(400).json({
+        success: false,
+        message: "Paid amount cannot be greater than total fees",
+      });
+    }
 
-const remainingAmount = Number(totalFees) - Number(amount);
+    const remainingAmount = Number(totalFees) - Number(amount);
     const student = await Student.create({
       name,
       email,
@@ -175,15 +175,22 @@ const remainingAmount = Number(totalFees) - Number(amount);
 
     seat.status = "Occupied";
     await seat.save();
-
     const transactionId = "TXN-" + Date.now();
 
     const payment = await Payment.create({
       enrollmentId: enrollment._id,
-      amount: Number(amount),
+
+      totalFees: Number(totalFees),
+
+      paidAmount: Number(amount),
+
+      remainingAmount,
+
       paymentMethod,
+
       transactionId,
-      paymentStatus:remainingAmount > 0 ? "Pending" : "Paid", 
+
+      paymentStatus: remainingAmount > 0 ? "Pending" : "Paid",
     });
 
     res.status(201).json({
@@ -220,7 +227,6 @@ const getAllStudents = async (req, res) => {
             enrollmentId: enrollment._id,
           });
         }
-
         return {
           ...student.toObject(),
 
@@ -231,6 +237,12 @@ const getAllStudents = async (req, res) => {
           paymentMethod: payment?.paymentMethod || "-",
 
           paymentStatus: payment?.paymentStatus || "-",
+          totalFees: payment?.totalFees ?? student.totalFees ?? 0,
+
+          paidAmount: payment?.paidAmount ?? 0,
+
+          remainingAmount:
+            payment?.remainingAmount ?? student.remainingAmount ?? 0,
         };
       }),
     );

@@ -26,8 +26,9 @@ const RevenueChart = ({
 
   payments.forEach((payment) => {
     if (
-      payment.paymentStatus === "Paid"
-    ) {
+  payment.paymentStatus === "Paid" ||
+  payment.paymentStatus === "Pending"
+) {
       const month =
         new Date(
           payment.paymentDate

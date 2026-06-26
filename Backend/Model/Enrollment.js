@@ -16,7 +16,7 @@ const enrollmentSchema = new mongoose.Schema(
 
     planType: {
       type: String,
-      enum: ["Daily Pass", "Monthly Pass", "Yearly Pass" , "Hourly Pass"],
+      enum: ["Daily Pass", "Monthly Pass", "Yearly Pass", "Hourly Pass"],
       required: true,
     },
 
@@ -29,6 +29,11 @@ const enrollmentSchema = new mongoose.Schema(
     endDate: {
       type: Date,
       required: true,
+    },
+    duration: {
+      type: Number,
+      required: true,
+      min: 1,
     },
 
     status: {
